@@ -19,7 +19,8 @@ Primary onboarding flow for new users connecting to the Fulcra environment. Fulc
    - Record this data into at least one of the newly created data streams.
 4. **Time-to-Wow (The Demonstration):**
    - Retrieve the recorded data from Fulcra.
-   - Generate a custom, themed HTML dashboard/view using the Canvas system. This dashboard must visually demonstrate their intent coming to life.
+   - Ask the user how they would like their dashboard themed. Suggest 2-3 creative options based on your sense of their personality (e.g., cyberpunk, fantasy, newspaper, modern fashion magazine, professional workplace tool).
+   - Generate a custom, themed HTML dashboard/view using the Canvas system matching their chosen aesthetic. This dashboard must visually demonstrate their intent coming to life.
 5. **Handoff & Next Steps:**
    - Suggest specific next actions based on the momentum:
      - Gather continuous background data via the iOS app.
