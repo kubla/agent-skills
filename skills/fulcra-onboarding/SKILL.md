@@ -16,6 +16,7 @@ Primary onboarding flow for new users connecting to the Fulcra environment. Fulc
 2. **Data Modeling:**
    - Translate the user's intent into 2-3 specific custom data types/streams (Annotations).
    - Use the `fulcra-create-annotations` skill to define and create these schemas.
+   - **Crucial Memory Step:** When you create these annotations, explicitly remember the returned `ANNOTATION_ID` and the exact `data_type` for each one. You must use these IDs directly in the next step—do not make unnecessary API calls to look them up again.
 3. **Record First Data:**
    - Pick one of the newly created annotations and ask the user a direct question to get their first piece of data (e.g., if you created a "coffee consumed" annotation, ask "How many coffees have you had today?").
    - Once they answer, record their response into Fulcra using the `fulcra-record-annotations` sibling skill. Use this skill EXCLUSIVELY for recording data, NOT for defining or creating schemas.
