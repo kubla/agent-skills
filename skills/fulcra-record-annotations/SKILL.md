@@ -36,17 +36,53 @@ curl -i -X POST \
 
 #### 1. Scale Annotation
 Used for logging a value on a defined scale (e.g., 1-5).
+#### 2. Moment Annotation
+Used for logging the occurrence of an event without a specific value.
 ```json
 {
   "metadata": {
-    "data_type": "ScaleAnnotation",
+    "data_type": "MomentAnnotation",
     "tags": [],
     "recorded_at": "2026-05-22T20:15:57Z",
     "content_type": "application/json",
     "source": [
-      "com.fulcradynamics.annotation.94dbf87b-3c0d-43d5-a501-ad61a8cc3226"
+      "com.fulcradynamics.annotation.<ANNOTATION_ID>"
     ]
   },
-  "data": "{\"note\":\"This is an example of a note being attached to a recording.\",\"value\":4}"
+  "data": "{\"note\":\"This is a note for a moment annotation.\"}"
+}
+```
+
+#### 3. Numeric Annotation
+Used for logging a specific quantity or number.
+```json
+{
+  "metadata": {
+    "data_type": "NumericAnnotation",
+    "tags": [],
+    "recorded_at": "2026-05-22T20:15:57Z",
+    "content_type": "application/json",
+    "source": [
+      "com.fulcradynamics.annotation.<ANNOTATION_ID>"
+    ]
+  },
+  "data": "{\"note\":\"Recorded 15 pushups.\",\"value\":15}"
+}
+```
+
+#### 4. Boolean Annotation
+Used for logging a Yes/No or True/False state.
+```json
+{
+  "metadata": {
+    "data_type": "BooleanAnnotation",
+    "tags": [],
+    "recorded_at": "2026-05-22T20:15:57Z",
+    "content_type": "application/json",
+    "source": [
+      "com.fulcradynamics.annotation.<ANNOTATION_ID>"
+    ]
+  },
+  "data": "{\"note\":\"Did I go to the gym? Yes.\",\"value\":true}"
 }
 ```
