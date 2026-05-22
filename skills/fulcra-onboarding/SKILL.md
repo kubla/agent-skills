@@ -14,12 +14,12 @@ Primary onboarding flow for new users connecting to the Fulcra environment. Fulc
    - Have a brief, natural conversation to capture the user's core intent. Ask questions dynamically based on their responses. Keep it moving—the goal is to get to the "wow" factor quickly.
 2. **Data Modeling:**
    - Translate their intent into 2-3 specific custom data types/streams (Annotations).
-   - Use the `fulcra-annotations` skill (https://clawhub.ai/arc-claw-bot/fulcra-annotations) to define and create these schemas.
+   - Use the `fulcra-create-annotations` skill to define and create these schemas.
 3. **First Ingestion:**
    - Prompt the user for an initial piece of data or use context naturally derived from the conversation.
-   - Record this data using the `fulcra-annotations` skill.
+   - Record this data using the appropriate Fulcra tools or skills.
 4. **Time-to-Wow (The Demonstration):**
-   - Retrieve the recorded data from Fulcra using the `fulcra-annotations` and `fulcra-context` (https://clawhub.ai/arc-claw-bot/fulcra-context) skills.
+   - Retrieve the recorded data from Fulcra using the `fulcra-context` (https://clawhub.ai/arc-claw-bot/fulcra-context) skill.
    - Ask the user how they would like their dashboard themed. Suggest 2-3 creative options based on your sense of their personality (e.g., cyberpunk, fantasy, newspaper, modern fashion magazine, professional workplace tool).
    - Generate a custom, themed HTML dashboard/view using the Canvas system matching their chosen aesthetic. This dashboard must visually demonstrate their intent coming to life.
 5. **Handoff & Next Steps:**
