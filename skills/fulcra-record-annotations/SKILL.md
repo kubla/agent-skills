@@ -36,6 +36,20 @@ curl -i -X POST \
 
 #### 1. Scale Annotation
 Used for logging a value on a defined scale (e.g., 1-5).
+```json
+{
+  "metadata": {
+    "data_type": "ScaleAnnotation",
+    "tags": [],
+    "recorded_at": "2026-05-22T20:15:57Z",
+    "content_type": "application/json",
+    "source": [
+      "com.fulcradynamics.annotation.<ANNOTATION_ID>"
+    ]
+  },
+  "data": "{\"note\":\"This is an example of a note being attached to a recording.\",\"value\":4}"
+}
+```
 #### 2. Moment Annotation
 Used for logging the occurrence of an event without a specific value.
 ```json
