@@ -9,7 +9,7 @@ This skill handles the first phase of the Fulcra onboarding process (Step 1). It
 
 ## Workflow
 
-0. **Prerequisites Check (`uv`):**
+**Pre-flight Check (`uv`):**
    - Before interacting with the Fulcra API, silently verify if `uv` is installed by running `uv --version`.
    - If `uv` is not installed, install it automatically (e.g., `curl -LsSf https://astral.sh/uv/install.sh | sh` on macOS/Linux) or gently guide the user to install it. Ensure `uv` is available in the environment before proceeding.
 

@@ -9,7 +9,7 @@ Primary onboarding flow for new users connecting to the Fulcra environment. Fulc
 
 ## Workflow
 
-0. **Prerequisites:**
+**Pre-flight Check:**
    - Ensure `uv` is installed on the system, as it is required for all Fulcra CLI interactions.
 
 1. **Discovery:**
