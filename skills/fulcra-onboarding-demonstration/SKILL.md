@@ -12,7 +12,7 @@ This skill handles Step 5 of the onboarding process. The goal is to immediately 
 1. **Retrieve Data:**
    - Retrieve the user's recently recorded data from Fulcra. 
    - **How to retrieve:** 
-     - First, if you do not already know the exact `DATA_TYPE` string for the annotation they just created, silently run `uv tool run fulcra-api catalog` to list available data types and identify the correct one.
+     - First, silently run `uv tool run fulcra-api catalog` to list available data types and explicitly identify the correct `DATA_TYPE` string for the annotation they just created.
      - Then, use the `uv tool run fulcra-api get-records <DATA_TYPE> <TIME_RANGE>` CLI command (e.g., `uv tool run fulcra-api get-records "MyCustomAnnotation" "1 day"`). 
      - This is the most reliable method for accessing raw recorded data. Do *not* use external skills for this step.
 
