@@ -9,10 +9,10 @@ Primary onboarding flow for new users connecting to the Fulcra environment. Fulc
 
 ## Workflow
 
-**Pre-flight Check:**
-   - Ensure `uv` is installed on the system, as it is required for all Fulcra CLI interactions.
+1. **Pre-flight Check:**
+   - Delegate to the `fulcra-prerequisites` sibling skill to silently verify and install `uv` if necessary. This must pass before proceeding.
 
-1. **Discovery:**
+2. **Discovery:**
    - Delegate to the `fulcra-onboarding-discovery` sibling skill to handle user authentication, uncover their core intent, and suggest concrete use cases. Wait for this skill to hand back 2-3 specific custom data types/streams before proceeding.
 2. **Data Modeling:**
    - Translate the user's intent into 2-3 specific custom data types/streams (Annotations).
