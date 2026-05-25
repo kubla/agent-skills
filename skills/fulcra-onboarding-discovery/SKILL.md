@@ -9,12 +9,14 @@ This skill handles the first phase of the Fulcra onboarding process (Step 1). It
 
 ## Workflow
 
-1. **Authentication Check:**
+1. **Authentication Check (STRICTLY ISOLATED):**
    - Verify if the user is currently authenticated with Fulcra.
    - If not authenticated, run `uv tool run fulcra-api auth login` and guide the user through the device code flow.
+   - **CRITICAL:** Do *not* ask the user about their goals, intent, or what they want to track in the same message as the authentication instructions. Present the auth link and code, and wait for them to complete it. Combining tasks causes friction and user drop-off.
 
-2. **Intent Discovery:**
-   - Engage the user in a brief, natural conversation to uncover their core intent. What do they want to track, remember, or build?
+2. **Intent Discovery (POST-AUTH ONLY):**
+   - Only *after* authentication is fully complete, engage the user to uncover their core intent. What do they want to track, remember, or build?
+   - **Keep it frictionless:** Keep your messages extremely short and punchy. Assume the user has a low attention span. Do not send walls of text. Ask one simple question at a time.
 
 3. **Proactive Suggestions:**
    - Suggest simple, concrete examples of how they could use Fulcra (e.g., specific Annotations to track).
