@@ -10,9 +10,7 @@ Primary onboarding flow for new users connecting to the Fulcra environment. Fulc
 ## Workflow
 
 1. **Discovery:**
-   - Authenticate the user if necessary using `uv tool run fulcra-api auth login` (guide them through the device code flow).
-   - Engage the user in a brief, natural conversation to uncover their core intent.
-   - Proactively suggest simple, concrete examples of how they could use Fulcra (e.g., specific Annotations to track). Tailor these suggestions using your existing memory and knowledge of the user. Keep the pace brisk to reach the "wow" factor quickly.
+   - Delegate to the `fulcra-onboarding-discovery` sibling skill to handle user authentication, uncover their core intent, and suggest concrete use cases. Wait for this skill to hand back 2-3 specific custom data types/streams before proceeding.
 2. **Data Modeling:**
    - Translate the user's intent into 2-3 specific custom data types/streams (Annotations).
    - Use the `fulcra-create-annotations` skill to define and create these schemas.
