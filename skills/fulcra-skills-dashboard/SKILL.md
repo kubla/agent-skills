@@ -35,14 +35,19 @@ As part of this skill, after the dashboard is scaffolded, **you MUST prompt the 
 
 1. **Scaffold:** The script copies a clean, un-styled SvelteKit dashboard template (which includes the OpenClaw Control UI embed and D3 timeline components) and installs dependencies.
 2. **Theming (Agent Task):** Because the scaffolded dashboard is deliberately un-styled, you must heavily stylize it based on the user's preference. 
-   - **Theme Discovery:** If the user already established a theme in a previous step (e.g., during the `fulcra-onboarding` HTML dashboard generation), you must automatically carry over that exact theme, aesthetic, and visual language to this new SvelteKit dashboard. If no previous theme exists, immediately ask the user what "theme" or "vibe" they want (e.g., minimalist dark mode, cyberpunk, a swamp, a space station). 
-   - **Apply the Theme:** Directly edit `src/routes/+page.svelte` and `src/routes/D3Timeline.svelte` to apply CSS that matches the requested theme!
+   - **Theme Discovery:** If the user already established a theme in a previous step (e.g., during the `fulcra-onboarding` HTML dashboard generation), you must automatically carry over that exact theme, aesthetic, and visual language to this new SvelteKit dashboard. If no previous theme exists, immediately ask the user what "theme" or "vibe" they want (e.g., minimalist dark mode, cyberpunk, a retro diner, a space station). 
+   - **Apply the Theme:** Directly edit the components in `src/routes/` to apply CSS that matches the requested theme:
+     - `ThemeStyles.svelte` (Global backgrounds and typography)
+     - `HeroHeader.svelte` (Titles, banners, and hero art injection)
+     - `DashboardGrid.svelte` (Card containers and layout)
+     - `AgentChat.svelte` (The floating chat window)
+     - `D3Timeline.svelte` (Chart specific styling)
    - **Original Art (Required):** You must provide one piece of highly creative thematic art for the dashboard (e.g., a mascot, a landscape, a retro poster) and inject it into the dashboard layout. You have two options:
-     1. **Generate it:** Use the `image_generate` tool, save it to `src/lib/assets/`, and import it into `+page.svelte` (e.g., `import heroImg from '$lib/assets/hero.png';` in the `<script>` block, then `<img src={heroImg} />`). Do not use string-based `onerror` handlers in SvelteKit 5 (e.g., avoid `onerror="this.style.display='none'"`).
+     1. **Generate it:** Use the `image_generate` tool, save it to `src/lib/assets/`, and import it into `HeroHeader.svelte` (e.g., `import heroImg from '$lib/assets/hero.png';` in the `<script>` block, then `<img src={heroImg} />`). Do not use string-based `onerror` handlers in SvelteKit 5 (e.g., avoid `onerror="this.style.display='none'"`).
      2. **Web Fallback:** If image generation fails or takes too long, simply find a highly relevant image URL from the web and use that URL directly in the `src` attribute. 
      Ensure the art is placed off to the side (or in a non-obtrusive corner) so it adds massive personality without interfering with the data visualizations. 
    - **Go all out:** Honor the user's theme to the max. Use CSS or additional generated images to create background textures and decorative UI elements. *Also, don't forget to update the favicon in `src/lib/assets/favicon.svg` to something that matches the user's theme!*
-   - **Animations:** Inject CSS animations (glows, pulsing borders, scrolling backgrounds, or enter-transitions) to make the dashboard feel alive and highly polished.
+   - **Animations:** Inject CSS animations (glows, pulsing borders, scrolling backgrounds, or enter-transitions) into the components to make the dashboard feel alive and highly polished.
 3. **Data Ingestion:** Automatically fetch the user's relevant Fulcra data using the `fulcra-api` CLI. 
    - **Discover Annotations:** Silently run `uv tool run fulcra-api catalog` to check for any user-created annotations. Annotation data types will be identified by the pattern `*Annotation/${ANNOTATION_ID}` (e.g., `Annotation/00000000-0000-0000-0000-000000000000`).
    - **Fetch Total Data Processed:** Use `uv tool run fulcra-api get-records RecordsProcessed "30 days"` (or an appropriate time range) to fetch the user's overarching data ingestion stats. You must include a chart in the dashboard that visualizes this `RecordsProcessed` data. **Crucial:** Do not just show a single total line. The chart must break down the volume by the type of record, and the UI should display the earliest and latest dates for the data fetched to give a sense of scale and timeline.
