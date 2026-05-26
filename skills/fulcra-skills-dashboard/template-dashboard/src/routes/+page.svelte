@@ -2,14 +2,6 @@
   import AgentChat from './AgentChat.svelte';
   import D3Timeline from './D3Timeline.svelte';
 
-  // Mock data for our two new Fulcra streams
-  const memoryBackups = [
-    { time: "2026-05-12T21:56:31Z", size: "2.4 MB", type: "Full Backup" },
-    { time: "2026-05-13T00:00:00Z", size: "2.4 MB", type: "Delta Backup" },
-    { time: "2026-05-14T04:00:00Z", size: "2.5 MB", type: "Delta Backup" },
-    { time: "2026-05-15T16:44:13Z", size: "2.7 MB", type: "Delta Backup" }
-  ];
-
   const annotations = [
     { time: "2026-05-13T17:26:40Z", label: "Dashboard Scaffolded", details: "Scaffolded SvelteKit base app." },
     { time: "2026-05-15T16:45:00Z", label: "Milestone Stream Created", details: "Initialized Agent Milestones in Fulcra." },
@@ -46,15 +38,9 @@
 
   <div class="dashboard-grid">
     <!-- Milestone Annotations -->
-    <section class="card">
+    <section class="card full-width">
       <h2>Milestone Annotations</h2>
       <D3Timeline data={annotations} title="" color="#4a5568" />
-    </section>
-
-    <!-- Agent Memory Sync -->
-    <section class="card">
-      <h2>Agent Memory Backups</h2>
-      <D3Timeline data={memoryBackups} title="" color="#2b6cb0" />
     </section>
   </div>
   
@@ -136,7 +122,7 @@
 
   .dashboard-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 2rem;
   }
 
