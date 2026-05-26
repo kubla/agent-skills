@@ -45,11 +45,13 @@ As part of this skill, after the dashboard is scaffolded, **you MUST prompt the 
    - **Fetch Total Data Processed:** Use `uv tool run fulcra-api get-records RecordsProcessed "30 days"` (or an appropriate time range) to fetch the user's overarching data ingestion stats. You must include a chart in the dashboard that visualizes this `RecordsProcessed` data. **Crucial:** Do not just show a single total line. The chart must break down the volume by the type of record, and the UI should display the earliest and latest dates for the data fetched to give a sense of scale and timeline.
    - If the user has custom Annotations (either from the `fulcra-onboarding` flow or found via the catalog check), you must *also* fetch and display the data for those specific annotations.
    - Inject this data strictly into the dashboard's `src/lib/data/` folder and load it dynamically in the Svelte components. Do not hardcode user data directly into the `.svelte` source code files.
-4. **Run:** Start the dev server.
+4. **Run & Verify:** Start the dev server and explicitly monitor the logs to ensure there are no syntax or compiler errors from your theming edits.
    ```bash
    cd <target-directory>
-   npm run dev
+   npm run dev > dev.log 2>&1 &
+   sleep 2 && cat dev.log
    ```
+   - **Crucial Error Recovery:** SvelteKit (`vite dev`) will crash with a 500 error if your CSS/HTML edits in step 2 introduced invalid syntax (e.g., duplicated `</style>` tags, missing brackets). You *must* check the output of `dev.log` immediately after starting the server. If you see Vite/Svelte compiler errors, use your file editing tools to fix the syntax in `src/routes/+page.svelte` or `src/routes/AgentChat.svelte` until `dev.log` shows the server is running cleanly without 500 errors. Only present the dashboard to the user once you confirm it compiles successfully.
 5. **Next Steps:** At the end of the dashboard setup and theming, ask the user what they want to do next. **Crucial:** Provide your own personalized suggestions for next steps based on your knowledge of the user (e.g., specific annotations to track, other data streams to visualize, or goals they are working towards). You can also suggest:
    - Starting to upload data from the agent as a new annotation or file upload.
    - Downloading the Context app (see fulcradynamics.com) to get personal data into the Fulcra database. **Important:** Before suggesting the Context app, perform a quick check for step count data in the user's Fulcra account using the CLI (e.g., checking `RecordsProcessed` or querying for step count). If the user already has step count data, assume they have the Context app installed and *do not* suggest downloading it.
