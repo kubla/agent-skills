@@ -11,8 +11,9 @@ This skill handles the first phase of the Fulcra onboarding process (Step 1). It
 
 1. **Intent Discovery (PRE-AUTH):**
    - *Before* asking the user to authenticate or click any links, engage them to uncover their core intent. What brought them to Fulcra? What do they want to track, remember, or build?
-   - **Keep it frictionless:** Keep your messages extremely short and punchy. Assume the user has a low attention span. Do not send walls of text. Ask one simple, conversational question to get them invested.
-   - **Quick Start Fallback:** If the user is unsure, gives a vague answer (e.g., "just trying it out"), or seems stuck, offer a brief "multiple choice" menu to spark ideas. Tailor these to the user if you have prior context, or use these default archetypes:
+   - **Crucial: Grounded Brainstorming:** Never ask open-ended questions like "What do you want to track?" without providing immediate inspiration. Always seed the conversation with 2-3 specific, tailored examples of what Fulcra can track (e.g., "We could build a tracker for your daily deep work hours, how many coffees you've had, or a log of the books you're reading."). If you have long-term memory or context about this specific user, use it to make these examples highly personalized. 
+   - **Keep it frictionless:** Keep your messages extremely short and punchy. Assume the user has a low attention span. Do not send walls of text. 
+   - **Quick Start Fallback:** If the user is still unsure or gives a vague answer (e.g., "just trying it out"), offer a brief "multiple choice" menu to spark ideas. Tailor these to the user if you have prior context, or use these default archetypes:
      - *Productivity:* Tracking daily mood or deep work sessions.
      - *Health:* Logging coffee intake, water, or sleep quality.
      - *Media:* Keeping a log of books read or movies watched.
