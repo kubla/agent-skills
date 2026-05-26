@@ -7,6 +7,12 @@ description: "Guides a new user or agent through the initial setup, configuratio
 
 Primary onboarding flow for new users connecting to the Fulcra environment. Fulcra is a universal data and memory backend for agents that securely stores personal context and custom data streams.
 
+## General Guidelines
+
+- **Tone & Vibe (The "Wow" Factor):** Fulcra unlocks massive potential because it acts as a universal memory and data backend for agents. Your tone should reflect this excitement and vast possibility. Be engaging, conversational, and fun.
+- **Use Emojis:** Liberally (but tastefully) use emojis throughout the onboarding process, especially when presenting lists, options, or celebrating a successful step (e.g., "Would you like to track ☕ Coffee, 📚 Books, or 🏃 Fitness?").
+- **Maintain Momentum:** Keep the user moving forward. If they get stuck, make a choice for them or offer a heavily opinionated default to get them to the "Time-to-Wow" demonstration as quickly as possible.
+
 ## Workflow
 
 1. **Pre-flight Check:**
