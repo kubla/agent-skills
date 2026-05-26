@@ -29,9 +29,12 @@ This skill handles Step 5 of the onboarding process. The goal is to immediately 
      - **Rich Styling:** Use embedded CSS to create a highly polished look. Leverage Google Fonts, CSS gradients, complex box-shadows, and layout techniques (Flexbox/Grid).
      - **CSS Animations:** Include simple CSS animations (e.g., pulsing glows, slide-ins, typing effects) to make the dashboard feel alive.
      - **Intent-Driven Copy:** Include clever, personalized micro-copy in the dashboard that nods to the user's broader intent and the specific theme.
+     - **Visual Extensibility:** Design the layout to explicitly convey that this is a living, expandable surface. Include UI hints like "Empty Slots," grayed-out "Coming Soon" sections, or placeholder modules for other related data types they might want to track in Fulcra next.
    - Ensure the dashboard visually incorporates the actual data retrieved in Step 1.
    - Present the HTML to the user directly in the chat thread (e.g., by writing it to the workspace and providing a way to view it).
 
 ## Handoff
 
-Once the HTML dashboard has been successfully generated and presented, wait for the user's reaction. After acknowledging their response, return control to the main `fulcra-onboarding` flow to handle the final App Download handoff.
+When presenting the HTML dashboard, explicitly emphasize that this is a living, iterative document. Tell the user they can ask you to tweak the design, add new metrics, or define entirely new data types to record in Fulcra right now.
+
+Once the dashboard has been successfully generated and presented, wait for the user's reaction. After acknowledging their response, return control to the main `fulcra-onboarding` flow to handle the final App Download handoff.
