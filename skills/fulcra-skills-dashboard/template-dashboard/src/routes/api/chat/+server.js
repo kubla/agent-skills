@@ -43,10 +43,13 @@ export async function POST({ request }) {
         
         // Trigger OpenClaw immediately (fire and forget, but detached so it survives the request ending)
         console.log('New user message detected, calling OpenClaw immediately...');
-        const prompt = `A new user message was posted in the Fulcra dashboard chat. Read the local chat.json file in this directory. Respond to the user's latest message, and append your response to the chat.json file as role 'assistant' with a timestamp. Do not modify the history. Reply with a short summary when done.`;
+        // We encode the prompt in base64 to avoid all shell quoting nightmares when passing it to exec
+        const prompt = `A new user message was posted in the Fulcra dashboard chat: "${body.message}". Read the local chat.json file in this directory to get full context. Respond to the user's latest message, and append your response to the chat.json file as role 'assistant' with a timestamp. Do not modify the history. Reply with a short summary when done.`;
+        const b64Prompt = Buffer.from(prompt).toString('base64');
         
         // Using exec in the background cleanly. We pass --to main to route it to the main session.
-        exec(`openclaw agent --to main --message "${prompt}" > /dev/null 2>&1 &`, (error) => {
+        // We decode the base64 prompt on the fly inside the shell command.
+        exec(`openclaw agent --to main --message "$(echo '${b64Prompt}' | base64 -d)" > /dev/null 2>&1 &`, (error) => {
             if (error) {
                 console.error('Error initiating openclaw background process:', error);
             }
