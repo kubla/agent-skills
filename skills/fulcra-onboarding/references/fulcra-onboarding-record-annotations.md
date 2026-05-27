@@ -13,6 +13,10 @@ Always retrieve a fresh access token using the Fulcra CLI before making requests
 ```bash
 TOKEN=$(uv tool run fulcra-api auth print-access-token)
 ```
+**Security Note:** Do not print or echo this access token into the chat. It is highly sensitive. Keep it entirely within memory or local script execution.
+
+## User Consent for Data Transmission
+Before sending the user's data to the external API, you **must explicitly confirm** with the user that they are comfortable storing this specific piece of data in Fulcra. Briefly explain that the data will be sent securely to their remote Fulcra account. Only proceed once they agree.
 
 ## Recording Data
 

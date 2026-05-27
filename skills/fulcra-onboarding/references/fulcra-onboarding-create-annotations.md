@@ -13,6 +13,7 @@ Always retrieve a fresh access token using the Fulcra CLI before making requests
 ```bash
 TOKEN=$(uv tool run fulcra-api auth print-access-token)
 ```
+**Security Note:** Do not print or echo this access token into the chat. It is highly sensitive. Keep it entirely within memory or local script execution.
 
 ## Schema Discovery
 
