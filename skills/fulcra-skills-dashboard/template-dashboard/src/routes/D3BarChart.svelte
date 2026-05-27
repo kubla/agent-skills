@@ -49,10 +49,10 @@
     svg.append("g")
       .attr("transform", `translate(0,${height})`)
       .call(d3.axisBottom(x).ticks(5))
-      .attr("color", "rgba(255,255,255,0.5)")
+      .attr("color", "#a0aec0")
       .selectAll("text")
       .style("font-family", "inherit")
-      .style("fill", "rgba(255,255,255,0.8)");
+      .style("fill", "#718096");
 
     // Y axis (Type)
     const y = d3.scaleBand()
@@ -62,16 +62,16 @@
 
     svg.append("g")
       .call(d3.axisLeft(y))
-      .attr("color", "rgba(255,255,255,0.5)")
+      .attr("color", "#a0aec0")
       .selectAll("text")
       .style("font-family", "inherit")
-      .style("fill", "rgba(255,255,255,0.8)")
+      .style("fill", "#718096")
       .style("font-size", "12px");
 
     // Color scale
     const colorScale = d3.scaleOrdinal()
       .domain(aggregatedData.map(d => d.type))
-      .range(d3.quantize(t => d3.interpolateGreens(t * 0.8 + 0.2), aggregatedData.length).reverse());
+      .range(d3.quantize(t => d3.interpolateBlues(t * 0.8 + 0.2), aggregatedData.length).reverse());
 
     // Bars
     svg.selectAll("myRect")
@@ -101,7 +101,7 @@
       .attr("y", d => y(d.type) + y.bandwidth() / 2 + 4)
       .attr("x", d => x(d.count) + 5)
       .text(d => d.count.toLocaleString())
-      .style("fill", "rgba(255,255,255,0.9)")
+      .style("fill", "#2d3748")
       .style("font-size", "12px")
       .style("font-family", "inherit");
   });
@@ -116,15 +116,15 @@
   .chart-wrapper {
     margin: 1rem 0;
     padding: 1rem;
-    background: rgba(0, 0, 0, 0.2);
+    background: #ffffff;
     border-radius: 8px;
-    border: 1px solid rgba(255,255,255,0.1);
+    border: 1px solid #e2e8f0;
   }
 
   h4 {
     margin: 0 0 1rem 0;
-    color: rgba(255,255,255,0.9);
-    font-weight: normal;
+    color: #2d3748;
+    font-weight: 600;
     font-size: 1.1rem;
   }
 
