@@ -39,7 +39,7 @@ This skill handles Step 5 of the onboarding process. The goal is to immediately 
      1. **Primary Display (Optional):** If you are confident you can display the dashboard in a richer way (e.g., using a native Canvas integration or Control UI embed), you may attempt it. However, do not attempt to reconfigure the agent's settings to achieve this.
      2. **File Fallback (Required):** Always save the generated HTML to a file in the workspace (e.g., `fulcra-dashboard.html`). 
         - **Important:** Clearly inform the user that a local HTML file will be created in their workspace before you write to it.
-        - Attach the file directly to your message in the chat thread so the user can easily download/view it.
+        - Attach the file directly to your message in the chat thread so the user can easily download/view it. **Crucial Formatting:** Ensure you write a short introductory sentence and a line break *before* the file attachment directive in your message. If the media attachment is the very first thing in your final reply, the chat UI parsing may break and display raw formatting tags.
         - Output the absolute path and tell the user they can open it directly in their web browser (e.g., `open /absolute/path/to/fulcra-dashboard.html`) to view the final rendered result. Do not output the raw HTML source code in the chat, as this clutters the experience.
 
 ## Handoff
