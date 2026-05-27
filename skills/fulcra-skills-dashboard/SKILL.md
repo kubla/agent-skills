@@ -41,7 +41,8 @@ As part of this skill, after the dashboard is scaffolded, **you MUST prompt the 
      - `HeroHeader.svelte` (Titles, banners, and hero art injection)
      - `DashboardGrid.svelte` (Card containers and layout)
      - `AgentChat.svelte` (The floating chat window)
-     - `D3Timeline.svelte` (Chart specific styling)
+     - `D3Timeline.svelte` (Chart specific styling and custom icons)
+       - **Crucial Icon Theming:** The `D3Timeline.svelte` component has a `getIcon(d)` function that defaults to returning generic emojis (e.g., '📝', '💾'). You must modify this function to return theme-appropriate emojis or SVGs that match the user's requested vibe (e.g., if the theme is "Subterranean Garden", it should return '🐉', '🐢', '🐕', etc., instead of the default icons).
    - **Original Art (Required):** You must provide one piece of highly creative thematic art for the dashboard (e.g., a mascot, a landscape, a retro poster) and inject it into the dashboard layout. You have two options:
      1. **Generate it:** Use the `image_generate` tool, save it to `src/lib/assets/`, and import it into `HeroHeader.svelte` (e.g., `import heroImg from '$lib/assets/hero.png';` in the `<script>` block, then `<img src={heroImg} />`). Do not use string-based `onerror` handlers in SvelteKit 5 (e.g., avoid `onerror="this.style.display='none'"`).
      2. **Web Fallback:** If image generation fails or takes too long, simply find a highly relevant image URL from the web and use that URL directly in the `src` attribute. 
