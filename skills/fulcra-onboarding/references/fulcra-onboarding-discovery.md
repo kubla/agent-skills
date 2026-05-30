@@ -20,13 +20,64 @@ This skill handles the first phase of the Fulcra onboarding process (Step 1). It
      - *Health:* Logging coffee intake, water, or sleep quality.
      - *Media:* Keeping a log of books read or movies watched.
 
-2. **Authentication Check & Login (Requires Consent):**
-   - Once the user has shared their intent and is excited about what they are about to build, **ask for their permission** to check their Fulcra authentication state and initiate a login flow if necessary.
-   - **How to verify:** After obtaining consent, run `uv tool run fulcra-api user-info`. If it returns valid JSON, the user is authenticated. If it returns an error or fails, they are not authenticated.
-   - If not authenticated, explain that you will now generate a secure login link, and then run `uv tool run fulcra-api auth login` using the `exec` tool. 
-   - **CRITICAL EXECUTION NOTE:** This command will output an authorization URL and a device code, and then the process will hang/wait in the background while it waits for the user to authenticate in their browser. Do *not* kill the process thinking it is stuck. If there is a chance you are running on a remote machine, the browser will not open automatically for the user. You *must* extract the login URL and code from the output and send the link directly to the user in the chat so they can click it.
-   - **SECURITY WARNING:** The authorization URL and device code are highly sensitive. If you are in a public or group channel, warn the user about the sensitivity and consider messaging them directly or advising them to treat the link securely. Warn the user not to share these artifacts, as they grant access to their account.
-   - Extract the URL and code from the stdout, present them to the user (adhering to the security warning above), explain it's the required next step to build what they just asked for, and wait for them to tell you they have completed the login. Do *not* combine the authentication instructions with further brainstorming.
+2. **Authentication:**
+   - **Check current auth status (no consent needed — read-only):**
+
+     ```bash
+     uv tool run fulcra-api user-info
+     ```
+
+     If it exits 0 and returns JSON, the user is already authenticated → skip
+     to step 3. If it fails (any non-zero exit), they are not authenticated;
+     proceed to login.
+
+   - **Login (this requires the user to click a URL in their browser).** Run
+     **exactly** the command below. The `timeout`, `2>&1`, and `|| true` are
+     all required: they cause the device-flow command to print the URL and
+     code to stdout and *return*, instead of hanging in the background where
+     most agents cannot reliably capture stdout:
+
+     ```bash
+     timeout 12 uv tool run fulcra-api auth login 2>&1 || true
+     ```
+
+     The output will contain two pieces you **MUST** relay to the user
+     immediately and verbatim:
+       - an **authorization URL** (e.g. `https://fulcra.us.auth0.com/activate?user_code=XXXX-YYYY`)
+       - a **device code** (e.g. `XXXX-YYYY`)
+
+     Present them like this (do **not** summarize, shorten, or paraphrase
+     the URL or code):
+
+     > 🔐 To connect to Fulcra, open this URL in your browser to sign in or
+     > create your account:
+     >
+     > **`<URL>`**
+     >
+     > Confirm the code shown on that page matches: **`<CODE>`**
+     >
+     > Reply "done" when you've finished and I'll continue.
+
+     **DO NOT** run a bare `uv tool run fulcra-api auth login` (without
+     `timeout`/`2>&1`) — it blocks indefinitely and the URL never reaches the
+     user. **DO NOT** spawn it as a background process and poll its log; the
+     stdout of a hanging child process is not reliably readable from many
+     agent runtimes.
+
+   - **After the user replies "done", verify the login completed:**
+
+     ```bash
+     uv tool run fulcra-api user-info
+     ```
+
+     If it's still a 401, retry once or twice with a short pause — there can
+     be a brief gap between completing browser auth and the token becoming
+     available.
+
+   - **Security note:** the authorization URL and device code grant access
+     to the user's Fulcra account. In a public or group channel, warn the
+     user about the sensitivity and advise them to treat the link as a
+     secret (don't paste it into shared chats, don't share it with others).
 
 3. **Proactive Suggestions:**
    - Suggest simple, concrete examples of how they could use Fulcra (e.g., specific Annotations to track).
