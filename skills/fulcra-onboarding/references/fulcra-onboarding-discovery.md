@@ -21,6 +21,23 @@ This skill handles the first phase of the Fulcra onboarding process (Step 1). It
      - *Media:* Keeping a log of books read or movies watched.
 
 2. **Authentication:**
+
+   > **Correctness notes for every shell command in this section** (these
+   > prevent the most common agent improvisations that break this flow):
+   >
+   > - **Always invoke the CLI as `uv tool run fulcra-api …`.** Don't use
+   >   bare `fulcra-api` — your runtime's spawned subshells may not have it
+   >   on PATH even when it's installed. Don't use `which fulcra-api` — it
+   >   returns empty in that case and will mislead you into thinking the CLI
+   >   isn't installed. `uv tool run fulcra-api` always works once `uv` is
+   >   available (which the parent skill's pre-flight already ensured).
+   > - **Run each shell snippet below as a single foreground string** in
+   >   your standard terminal/exec tool. Do **not** route them through a
+   >   separate background-process / spawn tool whose stdout you poll —
+   >   stdout from a still-running child process is not reliably readable
+   >   in most agent runtimes; that's why the login-launch line writes to
+   >   a log file on disk for you to `cat`.
+
    - **Check current auth status (no consent needed — read-only):**
 
      ```bash
@@ -51,7 +68,9 @@ This skill handles the first phase of the Fulcra onboarding process (Step 1). It
      Present them using **exactly** this template. Render the URL wrapped in
      **backticks** (inline code) — do **NOT** format it as a markdown link
      `[label](url)`; the user must see the literal URL string so they can
-     verify the code matches and (if needed) copy it:
+     verify the code matches and (if needed) copy it. (Note for context: the
+     URL already includes the device code as a query parameter, so the auth0
+     page pre-fills it — the user just clicks Confirm and signs in.)
 
      > 🔐 Open this URL in your browser to sign in or create your Fulcra
      > account:
@@ -62,10 +81,15 @@ This skill handles the first phase of the Fulcra onboarding process (Step 1). It
      >
      > Reply "done" when you've finished signing in.
 
-     The `fulcra-api auth login` process started above is **STILL RUNNING in
-     the background**, polling auth0 for the user to complete the flow.
-     **Do NOT kill it. Do NOT start another one.** It will write credentials
-     to disk and exit on its own when the user finishes.
+     The `uv tool run fulcra-api auth login` process started above is
+     **STILL RUNNING in the background**, polling auth0 for the user to
+     complete the flow. **Do NOT kill it. Do NOT start another one.** It will
+     write credentials to disk and exit on its own when the user finishes.
+
+     **Do NOT preemptively run `user-info` while waiting** — it will return
+     401 until the user actually completes the browser flow, and a premature
+     check followed by "401 means failure, let me restart" reasoning will
+     invalidate the user's current code. Wait for the user's explicit "done".
 
      **DO NOT** run a foreground `uv tool run fulcra-api auth login` (with or
      without `timeout`). The bare foreground command blocks indefinitely; a
