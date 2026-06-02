@@ -58,8 +58,9 @@ If no `<target-directory>` is provided, it defaults to creating a `fulcra-dashbo
 2. **Data Ingestion (Requires Consent):** Automatically fetch the user's relevant Fulcra data using the `fulcra-api` CLI. 
    - **Important:** Always ask the user for permission to query the Fulcra API to build the dashboard before fetching records.
    - Run `uv tool run fulcra-api catalog` to check for user annotations.
-   - Fetch records (e.g., `uv tool run fulcra-api get-records RecordsProcessed "30 days"`). Remember that `fulcra-api get-records` outputs JSONL. You *must* convert this to a valid JSON array (`cat output.jsonl | jq -s '.' > data.json`).
-   - Store the resulting data in a `data.json` file beside the `index.html`, and have your Alpine.js component fetch it on `init()` (e.g., `fetch('data.json').then(...)`).
+   - Fetch records (e.g., `uv tool run fulcra-api get-records RecordsProcessed "30 days"`). Remember that `fulcra-api get-records` outputs JSONL. You *must* convert this to a valid JSON structure that the dashboard expects. 
+   - The `data.json` file must match this schema: `{"timelines": [{"id": "...", "title": "...", "icon": "...", "color": "...", "data": [...] }], "recordsProcessed": [...]}`. Use a short Node.js or Python script to parse the JSONL files, group them into timelines, and write the final `data.json` file beside the `index.html`.
+   - Have your Alpine.js component fetch it on `init()` (e.g., `fetch('data.json').then(...)`).
 3. **Theming & Visualization:**
    - **Theme Discovery:** Ask the user what "theme" or "vibe" they want (e.g., minimalist dark mode, cyberpunk, a retro diner, a space station). 
    - **Apply the Theme:** You must edit the `theme.css` file to apply this aesthetic. The HTML structure (`index.html`) is fixed; do not edit it to add utility classes. Apply custom backgrounds, CSS variables, and specific animations directly to the semantic classes within `theme.css` (e.g., `.hero-header`, `.dashboard-title`).
