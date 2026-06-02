@@ -58,9 +58,9 @@ If no `<target-directory>` is provided, it defaults to creating a `fulcra-dashbo
 2. **Data Ingestion (Requires Consent):** Automatically fetch the user's relevant Fulcra data using the `fulcra-api` CLI. 
    - **Important:** Always ask the user for permission to query the Fulcra API to build the dashboard before fetching records.
    - Run `uv tool run fulcra-api catalog` to check for user annotations.
-   - Fetch records (e.g., `uv tool run fulcra-api get-records RecordsProcessed "30 days"`). Remember that `fulcra-api get-records` outputs JSONL. You *must* convert this to a valid JSON structure that the dashboard expects. 
-   - The `data.json` file must match this schema: `{"timelines": [{"id": "...", "title": "...", "icon": "...", "color": "...", "data": [...] }], "recordsProcessed": [{"type": "...", "count": 123}, ...]}`. Use a short Node.js or Python script to parse the JSONL files, group them into timelines, and aggregate `recordsProcessed` by type so the D3 bar chart can render it correctly.
-   - Have your Alpine.js component fetch it on `init()` (e.g., `fetch('data.json').then(...)`).
+   - Fetch records (e.g., `uv tool run fulcra-api get-records RecordsProcessed "30 days" > records_processed.jsonl`). Keep the files as raw JSONL in the dashboard directory.
+   - The `data.json` config file acts as a manifest. It should map your layout to the `.jsonl` files you downloaded, like this: `{"timelines": [{"id": "...", "title": "...", "icon": "...", "color": "...", "data": "timeline_name.jsonl"}], "recordsProcessed": "records_processed.jsonl"}`. 
+   - You do not need to write an aggregation script; the dashboard will automatically parse `.jsonl` files and aggregate records for the charts natively on `init()`.
 3. **Theming & Visualization:**
    - **Theme Discovery:** Ask the user what "theme" or "vibe" they want (e.g., minimalist dark mode, cyberpunk, a retro diner, a space station). 
    - **Apply the Theme:** You must edit the `theme.css` file to apply this aesthetic. The HTML structure (`index.html`) is fixed; do not edit it to add utility classes. Apply custom backgrounds, CSS variables, and specific animations directly to the semantic classes within `theme.css` (e.g., `.hero-header`, `.dashboard-title`).
