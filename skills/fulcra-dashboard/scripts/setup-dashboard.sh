@@ -27,7 +27,7 @@ echo "📁 Preparing data structures..."
 mkdir -p "$TARGET_DIR/assets"
 echo '{
   "timelines": [],
-  "recordsProcessed": []
+  "recordsProcessed": "records_processed.jsonl"
 }' > "$TARGET_DIR/data.json" # Agents will overwrite this manifest to point to .jsonl files
 
 echo "✅ Dashboard scaffolded successfully in: $TARGET_DIR"
