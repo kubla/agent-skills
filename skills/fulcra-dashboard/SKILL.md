@@ -56,7 +56,7 @@ If no `<target-directory>` is provided, it defaults to creating a `fulcra-dashbo
 
 **Contextual Awareness (Standalone vs. Post-Onboarding):** 
 Do not assume this skill is always run immediately after `fulcra-onboarding`. 
-- **If transitioning from Onboarding:** You likely already know the user's core intent, their recently created Annotations, and have fresh data context. Acknowledge this transition, skip redundant discovery, and immediately suggest building the dashboard around what you just set up.
+- **If transitioning from Onboarding:** The user has likely just seen a static HTML preview of their data. Acknowledge this transition and frame this step as *building out* and *upgrading* their existing preview into a live, interactive web app. Leverage the context of the annotations they just built, skip redundant discovery, and carry over their preferred theme.
 - **If running Standalone:** You must first discover what data the user wants to visualize (run `uv tool run fulcra-api catalog` to check for user annotations and discuss options before proceeding).
 
 1. **Scaffold:** The script copies a clean, un-styled Alpine.js dashboard template into the target directory.

@@ -17,7 +17,7 @@ This skill handles the final step (Step 6) of the onboarding process, presenting
 2. **Present Next Steps (Choose Your Own Adventure):**
    - Present the following next steps as a scannable bulleted list. Keep the descriptions short and punchy so it's easy to read.
 
-   - 🚀 **Build a Live Web App:** Ready to take that dashboard to the next level? I can transition us to the `fulcra-dashboard` skill to scaffold a fully interactive, D3.js-powered web app that is instantly deployable to GitHub Pages so you can share it with friends!
+   - 🚀 **Make Your Dashboard Live & Interactive:** Ready to take the dashboard we just previewed to the next level? I can transition us to the `fulcra-dashboard` skill to build it out into a fully interactive, D3.js-powered web app that is instantly deployable to GitHub Pages so you can share it with friends!
    
    - 📱 **Get the App:** Direct them to the [Fulcra Context iOS app](https://apps.apple.com/app/id1633037434). Mention that it can unlock automatic background sync (such as Apple Health, location, and calendar). **PRIVACY WARNING:** Explicitly inform the user that these are highly sensitive data types. Assure them that they will be asked for explicit permissions by iOS and can choose exactly what to share, and can turn it off at any time. It also gives them a quick way to log the custom Annotations they just made on the go.
    
