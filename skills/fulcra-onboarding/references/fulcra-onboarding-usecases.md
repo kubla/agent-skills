@@ -39,6 +39,14 @@ Here are several "Wow" factor use cases to use as inspiration or present directl
 **How it works:** Correlating physical GPS locations (cafes, co-working spaces, home) with task completion rates or GitHub commits.
 **The Wow:** A heat map of their city/world showing the literal geographic locations where they achieve the highest productivity and focus.
 
+## 7. Universal Agent Visibility Package
+**The Idea:** Total transparency into what the AI agent is doing behind the scenes.
+**How it works:** Propose creating standard annotations that the agent itself will log into Fulcra:
+1. **Agent Tasks Completed:** A log of discrete actions the agent has successfully finished on the user's behalf.
+2. **Agent Friction (User Rating):** A simple scale where the user can rate when the agent is being highly helpful versus getting stuck or being annoying.
+3. **Current Agent Work (File Upload):** The agent automatically uploads a concise markdown summary of its current ongoing tasks and context directly to the user's Fulcra datastore using the new file upload functionality.
+**The Wow:** A unified dashboard view in their Fulcra app where they can monitor, rate, and read up on exactly what their digital assistant is doing at any given moment, immediately populating their datastore with live activity.
+
 ## How to use these:
 - Don't dump the whole list on the user.
 - Pick 2-3 that align with what you already know about them (from `USER.md`, `MEMORY.md`, or previous chats).
