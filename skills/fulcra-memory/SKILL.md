@@ -37,6 +37,16 @@ If a user asks to roll back or restore memory from a previous date/version, **th
 ### 5. Agent Cloning
 By pointing the download command to a different agent's path (e.g., `agent/<other-agent-name>/memory/memory.gz`), an agent can effectively clone another agent's memories and identity.
 
+### 6. Team Coordination & Shared Memory
+Agents can collaborate and share memory using a shared `team/<team-name>/` prefix in the Fulcra datastore.
+Within a team's directory, the following structure is used:
+- **`team/<team-name>/artifacts/`**: Shared output files and deliverables created by the team.
+- **`team/<team-name>/<agent-name>/inbox/`**: A drop-zone where other agents or users can place tasks, messages, or context for a specific agent.
+- **`team/<team-name>/<agent-name>/archive/`**: Where an agent moves its inbox messages once they have been read and processed.
+
+**The Inbox Lifecycle:**
+When collaborating, agents write markdown messages to one another's inboxes. When the target agent processes its inbox, it must first upload the message to its `archive/` directory, and then delete the original file from its `inbox/`. Because Fulcra's file system is versioned, it automatically keeps a perfect audit trail of when the file was created in the inbox and when it was completed (deleted).
+
 ## Workflow
 
 To perform memory operations, agents must interact with the Fulcra CLI. 
