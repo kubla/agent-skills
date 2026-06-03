@@ -22,10 +22,13 @@ Primary onboarding flow for new users connecting to the Fulcra environment. Fulc
 1. **Pre-flight Check:**
    - Read and execute the instructions in `references/fulcra-onboarding-prerequisites.md` to verify and install `uv` if necessary, asking the user for confirmation before installation. This must pass before proceeding.
 
-2. **Discovery:**
-   - Read and execute the instructions in `references/fulcra-onboarding-discovery.md` to handle user authentication, uncover their core intent, and suggest concrete use cases. Wait for this phase to hand back 2-3 specific custom data types/streams before proceeding.
+2. **Memory Baseline & Agent Visibility:**
+   - Read and execute the instructions in `references/fulcra-onboarding-backup.md`. This step handles authentication, introduces the power of Fulcra by pitching a baseline agent memory backup, and offers to set up the Universal Agent Visibility Package. This serves as their very first trial of Fulcra's capabilities.
 
-3. **Data Modeling:**
+3. **User Intent Discovery:**
+   - Read and execute the instructions in `references/fulcra-onboarding-discovery.md` to uncover their core tracking intent and suggest concrete "wow" factor use cases. Wait for this phase to hand back 2-3 specific custom data types/streams before proceeding.
+
+4. **Data Modeling:**
    - Translate the user's intent into 2-3 specific custom data types/streams (Annotations).
    - Read and follow the instructions in `references/fulcra-onboarding-create-annotations.md` to define and create these schemas.
    - **Crucial Memory Step:** When you create these annotations, explicitly remember the returned `ANNOTATION_ID` and the exact `data_type` for each one. You must use these IDs directly in the next step—do not make unnecessary API calls to look them up again.
@@ -34,11 +37,8 @@ Primary onboarding flow for new users connecting to the Fulcra environment. Fulc
    - Pick one of the newly created annotations and ask the user a direct question to get their first piece of data (e.g., if you created a "coffee consumed" annotation, ask "How many coffees have you had today?").
    - Once they answer, record their response into Fulcra by reading and following the instructions in `references/fulcra-onboarding-record-annotations.md`.
 
-5. **Agent Baseline Backup (Optional):**
-   - Read and execute the instructions in `references/fulcra-onboarding-backup.md` to offer the user a baseline memory backup using the `fulcra-memory` capabilities.
-
-6. **Time-to-Wow (The Demonstration):**
+5. **Time-to-Wow (The Demonstration):**
    - Read and execute the instructions in `references/fulcra-onboarding-demonstration.md` to retrieve the recorded data, ask the user for a preferred aesthetic, and generate a custom themed HTML dashboard to display directly in the chat.
 
-7. **Handoff & Next Steps:**
+6. **Handoff & Next Steps:**
    - Read and execute the instructions in `references/fulcra-onboarding-handoff.md` to cleanly present the final steps (downloading the app, iterating on the dashboard, tracking more data) without overwhelming the user.

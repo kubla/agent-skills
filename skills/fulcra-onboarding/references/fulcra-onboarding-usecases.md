@@ -41,7 +41,7 @@ Here are several "Wow" factor use cases to use as inspiration or present directl
 
 ## 7. Universal Agent Visibility Package
 **The Idea:** Total transparency into what the AI agent is doing behind the scenes.
-**How it works:** Propose creating standard annotations that the agent itself will log into Fulcra:
+**How it works:** This package is typically pitched and set up during Step 2 (Memory Baseline & Visibility). Propose creating standard annotations that the agent itself will log into Fulcra:
 1. **Agent Tasks Completed:** A log of discrete actions the agent has successfully finished on the user's behalf.
 2. **Agent Friction (User Rating):** A simple scale where the user can rate when the agent is being highly helpful versus getting stuck or being annoying.
 3. **Current Agent Work:** The agent automatically records a text annotation containing a concise markdown summary of its current ongoing tasks and context directly to the user's Fulcra datastore.
