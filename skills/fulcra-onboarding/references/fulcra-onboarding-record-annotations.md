@@ -12,7 +12,7 @@ Use this skill to record (ingest) data entries for existing custom Annotations i
 You must securely inject the access token dynamically when executing API requests.
 
 **Security Requirements:**
-1. Inject the token directly using command substitution: `"Authorization: Bearer $(uv tool run fulcra-api auth print-access-token)"`
+1. Use inline command execution/substitution (`$(...)`) to inject the token directly into the header: `"Authorization: Bearer $(uv tool run fulcra-api auth print-access-token)"`
 2. Never store the token in a file or print it to the chat. It is highly sensitive.
 
 ## User Consent for Data Transmission
