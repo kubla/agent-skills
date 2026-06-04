@@ -19,8 +19,8 @@ This skill ensures the host environment is ready to interact with the Fulcra API
 3. **Verify Companion Skills:**
    - The onboarding flow relies on several companion skills being installed in the environment.
    - Use your `exec` tool to run `openclaw skills list` (or check your internal skill registry).
-   - Ensure both the `fulcra-memory` and `fulcra-dashboard` skills are installed.
-   - If either is missing, stop the onboarding flow. Politely inform the user that these companion skills are required to complete the setup, and provide them with the commands to install them (e.g., `openclaw skills install fulcra-memory`). Do not proceed until they confirm the skills are installed.
+   - Ensure the `fulcra-memory` skill is installed.
+   - If it is missing, stop the onboarding flow. Politely inform the user that this companion skill is required to complete the setup, and provide them with the command to install it (e.g., `openclaw skills install fulcra-memory`). Do not proceed until they confirm the skill is installed.
 
 ## Handoff
 
