@@ -76,10 +76,15 @@ Do not assume this skill is always run immediately after `fulcra-onboarding`.
    - **Original Art (Required):** Generate one piece of highly creative thematic art using the `image_generate` tool. Save it to the folder and reference it via an `<img>` tag in the dashboard header. **Style Directive:** The image must be extremely high-quality and perfectly cohesive with the user's chosen theme. Whether the vibe calls for retro 2D pixel art, a minimalist vector illustration, or a sleek 3D render, ensure the specific art style, color palette, and lighting strictly match the CSS variables and overall aesthetic you are building.
    - **Hero Text Legibility & Scale:** When styling the hero header, ensure the text overlaid on the image is highly legible. Adapt the technique to fit the theme (e.g., use a frosted glass `backdrop-filter: blur()` block for tech/modern themes, an ambient `radial-gradient` vignette for dark/moody themes). Additionally, the hero must not dominate the viewport. Keep it compact (e.g., `min-height: 250px`) so the core telemetry data is visible "above the fold."
    - **Dynamic Animated Elements:** Inject at least one CSS animation (using standard CSS `@keyframes` in `theme.css`) that fits the theme (e.g., a floating asteroid, a blinking cursor, a buzzing fly) and attach it to the `.animation-layer` or other suitable elements.
-4. **Git Repository Initialization:**
+4. **Git Repository Initialization & Deployment:**
    - Once scaffolded, **you MUST prompt the user to initialize a git repository**.
-   - Check if `git` is installed. Suggest 1 or 2 fun repository names.
-   - Initialize locally (`git init && git add . && git commit -m "Initial commit"`). *Do not push to GitHub during the initial onboarding flow unless explicitly requested.*
+   - Check if `git` is installed. Suggest 1 or 2 fun repository names based on their theme.
+   - Initialize locally (`git init && git add . && git commit -m "Initial commit"`).
+   - **GitHub Pages Offer:** Explicitly ask if they would like to publish this dashboard live to the internet using GitHub Pages so they can view it anywhere.
+   - If they agree, ensure the `gh` (GitHub CLI) is installed and authenticated (`gh auth status`). If it is not, provide instructions or execute the installation (`brew install gh` or equivalent) and wait for the user to complete `gh auth login`.
+   - Once authenticated, create the repository and push the code (`gh repo create <name> --public --source=. --remote=origin --push`).
+   - *Crucially*, after pushing, execute the command to enable GitHub pages for the repository from the main branch: `gh api repos/{owner}/{repo}/pages -X POST -f "source[branch]=main" -f "source[path]=/"`.
+   - Provide the user with the final public `https://<username>.github.io/<repo>/` URL.
 5. **Run & Verify:**
    - Start the local Python server to preview the dashboard:
      ```bash
