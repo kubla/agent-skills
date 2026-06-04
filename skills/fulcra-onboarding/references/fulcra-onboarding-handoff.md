@@ -25,7 +25,7 @@ This skill handles the final step (Step 7) of the onboarding process, presenting
    
    - ➕ **Track More Data:** Remind them this is just the beginning. They can easily define new Annotations or start pulling in bulk data to expand their dashboard.
    
-   - 🧠 **Automate Agent Memory & Teamwork:** We can use the `fulcra-memory` skill to set up a scheduled cron job (or heartbeat) so that my memory is automatically backed up. We can also set up shared Team namespaces so multiple agents can coordinate and drop files in each other's inboxes.
+   - 🧠 **Agent Memory & Teamwork:** Remind them that Fulcra acts as a universal backend, allowing them to coordinate multiple agents with shared memory rather than relying on isolated chat histories. We can set up shared Team namespaces so agents can coordinate and drop files in each other's inboxes.
 
 3. **Closing:**
    - Ask them which path they want to take next (e.g., "Shall we build that live web app, or would you rather explore Context Web first?").
