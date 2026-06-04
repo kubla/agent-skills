@@ -86,7 +86,7 @@ class DashboardHandler(http.server.SimpleHTTPRequestHandler):
                 print(f"Received chat request: {data}")
                 
                 # Generate a simulated response
-                simulated_reply = {"role": "system", "text": "Notice: The Sub-Surface Relay is currently dormant. To complete setup, return to your OpenClaw session and explicitly instruct the agent to 'connect the chat envoy', then wait for them to confirm before trying again."}
+                simulated_reply = {"role": "system", "text": "Notice: The Relay is currently dormant. To complete setup, return to your OpenClaw session and explicitly instruct the agent to 'connect the chat envoy', then wait for them to confirm before trying again."}
                 self.chat_history.append(simulated_reply)
                 
                 self.send_response(200)
