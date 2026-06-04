@@ -78,8 +78,8 @@ Do not assume this skill is always run immediately after `fulcra-onboarding`.
    - **Dynamic Animated Elements:** Inject at least one CSS animation (using standard CSS `@keyframes` in `theme.css`) that fits the theme (e.g., a floating asteroid, a blinking cursor, a buzzing fly) and attach it to the `.animation-layer` or other suitable elements.
 4. **Git Repository Initialization:**
    - Once scaffolded, **you MUST prompt the user to initialize a git repository**.
-   - Check if `git` is installed. Suggest 1 or 2 fun repository names.
-   - Initialize locally (`git init && git add . && git commit -m "Initial commit"`). *Do not push to GitHub during the initial onboarding flow unless explicitly requested.*
+   - Check if `git` is installed. Suggest 1 or 2 fun repository names based on their theme.
+   - Initialize locally (`git init && git add . && git commit -m "Initial commit"`). *Do not push to GitHub yet.*
 5. **Run & Verify:**
    - Start the local Python server to preview the dashboard:
      ```bash
@@ -90,6 +90,11 @@ Do not assume this skill is always run immediately after `fulcra-onboarding`.
 6. **Chat Envoy & GitHub Deployment:** 
    - The dashboard includes a chat envoy component (default title "Relay"). Remind the user that this envoy only functions locally via the Python server.
    - If the user pushes the repository to GitHub Pages, the CSS is designed to automatically hide the envoy to prevent user confusion, as the chat interface cannot route messages to the local Python bridge from a remote host.
+   - **GitHub Pages Offer:** Explicitly ask if they would like to publish this dashboard live to the internet using GitHub Pages so they can view it anywhere.
+   - If they agree, ensure the `gh` (GitHub CLI) is installed and authenticated (`gh auth status`). If it is not, provide instructions or execute the installation (`brew install gh` or equivalent) and wait for the user to complete `gh auth login`.
+   - Once authenticated, create the repository and push the code (`gh repo create <name> --public --source=. --remote=origin --push`).
+   - *Crucially*, after pushing, execute the command to enable GitHub pages for the repository from the main branch: `gh api repos/{owner}/{repo}/pages -X POST -f "source[branch]=main" -f "source[path]=/"`.
+   - Provide the user with the final public `https://<username>.github.io/<repo>/` URL.
 7. **Handoff & Next Steps:**
    - Once the user has seen the live local dashboard, do not just stop. Outline possible next directions to keep the momentum going:
      - **Enrich the Data:** Pull in passive data from the Fulcra Context app (e.g., location, heart rate) or ingest data from other external sources to correlate with their custom annotations.
