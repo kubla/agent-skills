@@ -24,7 +24,7 @@ echo "# Current Agent State..." > memory/top_of_mind.md
 **Step B: Compress the files**
 ```bash
 # Create a gzip tarball containing the essential memory files (ignore if some are missing)
-tar -czvf /tmp/memory.gz SOUL.md IDENTITY.md MEMORY.md memory/ 2>/dev/null || true
+tar -czvf /tmp/memory.tar.gz SOUL.md IDENTITY.md MEMORY.md memory/ 2>/dev/null || true
 ```
 
 **Step C: Upload to Fulcra**
@@ -32,7 +32,7 @@ Upload the files using the standardized agent path convention. Determine the age
 
 ```bash
 # Replace <agent_name> with the agent's actual name (e.g., treecle, wazir) in lowercase
-uv tool run fulcra-api file upload /tmp/memory.gz "agent/<agent_name>/memory/memory.gz"
+uv tool run fulcra-api file upload /tmp/memory.tar.gz "agent/<agent_name>/memory/memory.tar.gz"
 uv tool run fulcra-api file upload memory/top_of_mind.md "agent/<agent_name>/memory/top_of_mind.md"
 ```
 
@@ -41,7 +41,7 @@ uv tool run fulcra-api file upload memory/top_of_mind.md "agent/<agent_name>/mem
 Because Fulcra versions files automatically, you can see all previous backups of the memory using the `stat` command.
 
 ```bash
-uv tool run fulcra-api file stat "agent/<agent_name>/memory/memory.gz"
+uv tool run fulcra-api file stat "agent/<agent_name>/memory/memory.tar.gz"
 ```
 *(This command will output information about the file, including all previously uploaded versions and their UUIDs. Present these to the user so they can select a version to restore.)*
 
@@ -59,27 +59,42 @@ uv tool run fulcra-api file restore <version_id>
 
 **Step B: Download the restored file**
 ```bash
-uv tool run fulcra-api file download "agent/<agent_name>/memory/memory.gz" /tmp/restored_memory.gz
+uv tool run fulcra-api file download "agent/<agent_name>/memory/memory.tar.gz" /tmp/restored_memory.tar.gz
 ```
 
-**Step C: Extract and overwrite local memory**
+**Step C: Inspect and Confirm**
+**STOP.** You MUST explicitly warn the user that extracting the archive will overwrite their current identity and memory files (`SOUL.md`, `IDENTITY.md`, `MEMORY.md`, and `memory/`). Before asking for confirmation, inspect the contents of the archive to ensure it looks safe and expected:
+```bash
+tar -ztvf /tmp/restored_memory.tar.gz
+```
+Share the list of files with the user and ask for their explicit confirmation before proceeding.
+
+**Step D: Extract and overwrite local memory**
 ```bash
 cd ~/.openclaw/workspace
-tar -xzvf /tmp/restored_memory.gz
+tar -xzvf /tmp/restored_memory.tar.gz
 ```
 *(This will overwrite the local `SOUL.md`, `IDENTITY.md`, `MEMORY.md`, and the `memory/` directory with the state from the downloaded archive.)*
 
 ## 4. Cloning Another Agent's Memory
 
-To clone, skip the restore step and simply download the target agent's `memory.gz` archive.
+To clone, skip the restore step and simply download the target agent's `memory.tar.gz` archive.
 
 ```bash
 # Download the target agent's memory
-uv tool run fulcra-api file download "agent/<other_agent_name>/memory/memory.gz" /tmp/restored_memory.gz
+uv tool run fulcra-api file download "agent/<other_agent_name>/memory/memory.tar.gz" /tmp/restored_memory.tar.gz
+```
 
-# Extract locally (Overwrites current identity and memory)
+**STOP.** You MUST explicitly warn the user that extracting the cloned archive will overwrite your current identity and memory files with the cloned agent's state. Before asking for confirmation, inspect the contents of the cloned archive:
+```bash
+tar -ztvf /tmp/restored_memory.tar.gz
+```
+Share the list of files with the user and ask for their explicit confirmation before proceeding.
+
+```bash
+# Extract locally (Only after user confirmation!)
 cd ~/.openclaw/workspace
-tar -xzvf /tmp/restored_memory.gz
+tar -xzvf /tmp/restored_memory.tar.gz
 ```
 
 ## 5. Uploading User Artifacts
@@ -117,6 +132,9 @@ uv tool run fulcra-api file download "team/<team_name>/<your_agent_name>/inbox/t
 # 2. Upload it to your archive directory
 uv tool run fulcra-api file upload /tmp/task_123.md "team/<team_name>/<your_agent_name>/archive/task_123.md"
 
-# 3. Delete it from the inbox to clear it
+# 3. Verify archival succeeded before deletion!
+uv tool run fulcra-api file stat "team/<team_name>/<your_agent_name>/archive/task_123.md"
+
+# 4. Delete it from the inbox to clear it (only if step 3 succeeded)
 uv tool run fulcra-api file delete "team/<team_name>/<your_agent_name>/inbox/task_123.md"
 ```
