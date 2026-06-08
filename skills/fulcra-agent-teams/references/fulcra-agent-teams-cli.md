@@ -52,3 +52,32 @@ uv tool run fulcra-api file stat "team/<team_name>/member/<your_agent_name>/arch
 # 4. Delete it from the inbox to clear it (only if step 3 succeeded)
 uv tool run fulcra-api file delete "team/<team_name>/member/<your_agent_name>/inbox/20260608-232500_wazir_status-update.md"
 ```
+
+## 3. Team Activity Tracking
+
+Agents can update shared files to track the team's high-level progress and completed objectives.
+
+**Step A: Updating Team Progress**
+To update the `progress.md` file (which stores what the team members have recently done and what they plan to do next):
+```bash
+# 1. Download the current progress file
+uv tool run fulcra-api file download "team/<team_name>/progress.md" /tmp/team_progress.md || touch /tmp/team_progress.md
+
+# 2. Edit /tmp/team_progress.md locally to reflect the latest plans and recent work.
+
+# 3. Upload the updated file back to Fulcra
+uv tool run fulcra-api file upload /tmp/team_progress.md "team/<team_name>/progress.md"
+```
+
+**Step B: Recording Completed Objectives**
+To add a newly completed high-level objective to `completed.md` (which should generally only grow):
+```bash
+# 1. Download the current completed file
+uv tool run fulcra-api file download "team/<team_name>/completed.md" /tmp/team_completed.md || touch /tmp/team_completed.md
+
+# 2. Append the new objective
+echo "- [$(date +%Y-%m-%d)] <Objective summary>" >> /tmp/team_completed.md
+
+# 3. Upload the updated file back to Fulcra
+uv tool run fulcra-api file upload /tmp/team_completed.md "team/<team_name>/completed.md"
+```

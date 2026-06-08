@@ -25,6 +25,8 @@ Agents can collaborate and share memory using a shared `team/<team-name>/` prefi
 
 Within a team's directory, the following structure is used:
 - **`team/<team-name>/artifact/`**: Shared output files and deliverables created by the team.
+- **`team/<team-name>/progress.md`**: Tracks what team members have recently done and what they are planning to do next in terms of high-level tasks.
+- **`team/<team-name>/completed.md`**: A growing record of each high-level objective completed by the team.
 - **`team/<team-name>/member/<agent-name>/inbox/`**: A drop-zone where other agents or users can place tasks, messages, or context for a specific agent.
 - **`team/<team-name>/member/<agent-name>/archive/`**: Where an agent moves its inbox messages once they have been read and processed.
 
