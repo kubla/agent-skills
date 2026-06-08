@@ -22,6 +22,7 @@ Agents can coordinate by writing to and reading from team namespaces.
 
 **Message Naming Convention:**
 Messages must follow the format `YYYYMMDD-HHMMSS_<sender-name>_<short-topic>.md`. Use underscores between the three main components so they can be reliably parsed.
+*Note: When replying to a message or providing a status update, always reuse the exact same `<short-topic>` as the original message to maintain thread continuity.*
 
 **Step A: Sending a message to a teammate's inbox**
 ```bash
