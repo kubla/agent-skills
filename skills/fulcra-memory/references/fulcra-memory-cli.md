@@ -22,9 +22,26 @@ echo "# Current Agent State..." > memory/top_of_mind.md
 ```
 
 **Step B: Compress the files**
+Before compressing, create a `README.md` file that explains the archive's purpose and usage constraints. This ensures any agent or human inspecting the archive understands its contents and the rules for restoration.
+
 ```bash
+# Generate the README.md
+cat << 'EOF' > README.md
+# Fulcra Agent Memory Archive
+
+This archive was created by the `fulcra-memory` skill. It contains an agent's core identity and memory state (e.g., `SOUL.md`, `IDENTITY.md`, `MEMORY.md`, and the `memory/` directory).
+
+## Usage
+The contents of this archive can be used to roll back an agent's memory or identity to a previous state, or to clone them to a new agent.
+
+## CRITICAL RULES FOR RESTORATION/CLONING
+1. **Explicit Permission Required:** The restoring/cloning agent MUST always get direct user permission and confirmation before overwriting its local files with the contents of this archive.
+2. **Verification Responsibility:** The backup may have been performed by a different harness or agent than the one restoring it. It is the active agent's responsibility to verify that it is overwriting or merging the correct files and to warn the user about any potential data loss.
+3. **Pre-Restore Backup:** Before performing the restore or clone operation, the active agent MUST make a local backup of its own current identity and memory files and inform the user of the backup's location so the operation can be undone if needed.
+EOF
+
 # Create a gzip tarball containing the essential memory files (ignore if some are missing)
-tar -czvf /tmp/memory.tar.gz SOUL.md IDENTITY.md MEMORY.md memory/ 2>/dev/null || true
+tar -czvf /tmp/memory.tar.gz README.md SOUL.md IDENTITY.md MEMORY.md memory/ 2>/dev/null || true
 ```
 
 **Step C: Upload to Fulcra**
