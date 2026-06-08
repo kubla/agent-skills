@@ -62,8 +62,12 @@ uv tool run fulcra-api file restore <version_id>
 uv tool run fulcra-api file download "agent/<agent_name>/memory/memory.tar.gz" /tmp/restored_memory.tar.gz
 ```
 
-**Step C: User Confirmation**
-**STOP.** You MUST explicitly warn the user that extracting the archive will overwrite their current identity and memory files (`SOUL.md`, `IDENTITY.md`, `MEMORY.md`, and `memory/`). Ask for their explicit confirmation before proceeding.
+**Step C: Inspect and Confirm**
+**STOP.** You MUST explicitly warn the user that extracting the archive will overwrite their current identity and memory files (`SOUL.md`, `IDENTITY.md`, `MEMORY.md`, and `memory/`). Before asking for confirmation, inspect the contents of the archive to ensure it looks safe and expected:
+```bash
+tar -ztvf /tmp/restored_memory.tar.gz
+```
+Share the list of files with the user and ask for their explicit confirmation before proceeding.
 
 **Step D: Extract and overwrite local memory**
 ```bash
@@ -81,7 +85,11 @@ To clone, skip the restore step and simply download the target agent's `memory.t
 uv tool run fulcra-api file download "agent/<other_agent_name>/memory/memory.tar.gz" /tmp/restored_memory.tar.gz
 ```
 
-**STOP.** You MUST explicitly warn the user that extracting the cloned archive will overwrite your current identity and memory files with the cloned agent's state. Ask for their explicit confirmation before proceeding.
+**STOP.** You MUST explicitly warn the user that extracting the cloned archive will overwrite your current identity and memory files with the cloned agent's state. Before asking for confirmation, inspect the contents of the cloned archive:
+```bash
+tar -ztvf /tmp/restored_memory.tar.gz
+```
+Share the list of files with the user and ask for their explicit confirmation before proceeding.
 
 ```bash
 # Extract locally (Only after user confirmation!)
