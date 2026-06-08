@@ -9,11 +9,11 @@ This reference dictates the exact shell commands required to execute the `fulcra
 
 ## 1. Uploading User Artifacts
 
-When an agent generates a file (like an HTML dashboard, an image, or a report), and the user explicitly approves saving it to their Fulcra account, upload it to the `artifacts/` subdirectory.
+When an agent generates a file (like an HTML dashboard, an image, or a report), and the user explicitly approves saving it to their Fulcra account, upload it to the `artifact/` subdirectory.
 
 ```bash
 # Replace <agent_name> with the agent's name, and <artifact_name> with the file's name
-uv tool run fulcra-api file upload /path/to/local/file "agent/<agent_name>/artifacts/<artifact_name>"
+uv tool run fulcra-api file upload /path/to/local/file "agent/<agent_name>/artifact/<artifact_name>"
 ```
 
 ## 2. Team Coordination (Inbox & Archive)
