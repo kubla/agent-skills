@@ -28,7 +28,7 @@ Background: [FULCRA-PRIMITIVES.md](https://github.com/ashfulcra/fulcra-tools/blo
    keys are namespaced prefs, `weight` in [-1,1], negative = aversion,
    `stale: true` = verify with the user before relying on it.
 
-## 3. Capture a signal (POST + v1 cache shard)
+## 3. Capture a signal (one POST)
 
 First compute:
 
@@ -63,27 +63,11 @@ Split on the first "/":
   definition — matching the production pattern in the attention Chrome extension.
 
 Read `prefs/meta.json` using the same two-GET pattern as step 2.
-
-Finally upload the v1 compile cache shard. The current `fulcra-prefs compile`
-implementation reads one JSON file per signal under `prefs/signals-cache/`;
-until record-read support replaces that cache, a POST-only capture appears on
-the user's timeline but will not become compile-visible.
-
-1. Build shard JSON:
-
-       {"id":"<sid>","recorded_at":"<recorded_at>","sources":["<sid>"],"data":"<payload>"}
-
-2. Upload it to `prefs/signals-cache/<sid>.json` using the file upload API:
-   `POST /input/v1/file_upload` with JSON
-   `{"name":"<sid>.json","path":"/prefs/signals-cache","content_type":"application/json","content_length":<bytes>}`,
-   then `POST` the raw shard bytes to the returned signed `url` with matching
-   headers.
-
-Retry each network step once. If the record POST succeeds but the cache upload
-fails, tell the user the preference was recorded on the timeline but will not be
-used by compiled preferences until a CLI-capable agent backfills the cache.
+Retry once on failure, then tell the user the capture didn't stick.
 
 ## 4. What you cannot do at this tier
 
 Compile and solve run only where code runs (CLI-capable agents or cron).
-Your captures appear in compiled docs after the next compile elsewhere.
+Your single ingest POST is enough: compile reads signals straight from
+get-records, so a capture you make here shows up in everyone's compiled docs
+after the next compile elsewhere — you do NOT need to write any cache file.
