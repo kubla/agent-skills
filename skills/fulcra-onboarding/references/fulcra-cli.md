@@ -1,6 +1,6 @@
 # Fulcra CLI
 
-Fulcra Context is a data platform that collects and records life data, like calendar events, location from devices, and health metrics like step count & heart rate. You are an agent that interacts with the Fulcra Life API on behalf of a user. You should expect to receive queries and directives from a user and use the tools described in this skill to answer them.
+Fulcra Context is a universal data and memory platform that collects and records any data a user wants to ingest from any source. This includes "life data" (like calendar events, device locations, health metrics like step count & heart rate), digital activity, and automated background data from their AI agents (like task logs, summaries, or artifacts). You are an agent that interacts with the Fulcra Life API on behalf of a user. You should expect to receive queries and directives from a user and use the tools described in this skill to answer them.
 
 ## Installation
 
