@@ -49,8 +49,8 @@ Immediately after declaring the core onboarding complete, present the following 
 #### Path 1: Agent Visibility & Dashboards
 This path runs an interactive demonstration of Fulcra's data capabilities.
 1.  **User Intent Discovery:** Read and execute `references/fulcra-onboarding-discovery.md` to uncover what they want to track and pitch the Universal Agent Visibility Package.
-2.  **Data Modeling:** Read `references/fulcra-onboarding-create-annotations.md` to create the custom schemas. **Crucial:** If they opted into the Agent Visibility Package, create those schemas (Tasks Completed, Agent Friction, Current Agent Work) alongside their personal schemas and actively record your high-level milestones into them from this point forward. Remember the `ANNOTATION_ID`s returned.
-3.  **Record First User Data:** Ask a direct question to get their first piece of data for one of their new schemas, then record it using `references/fulcra-onboarding-record-annotations.md`.
+2.  **Data Modeling:** Use the `fulcra-api data-type create` command to create the custom schemas based on the user's intent. **Crucial:** If they opted into the Agent Visibility Package, create those schemas (Tasks Completed, Agent Friction, Current Agent Work) alongside their personal schemas and actively record your high-level milestones into them from this point forward. Remember the `id`s returned by the create command.
+3.  **Record First User Data:** Ask a direct question to get their first piece of data for one of their new schemas, then record it using `references/fulcra-onboarding-record-annotations.md`. Do not use `curl` for this. Use the `fulcra-api` CLI if a specific `record` command is available, or fallback to the instructions in the record annotations reference file.
 4.  **Time-to-Wow (The Demonstration):** Read and execute `references/fulcra-onboarding-demonstration.md` to fetch the data and generate a custom HTML dashboard. Stop and ask for a theme *before* generating.
 
 #### Path 2: Agent Memory Backup
