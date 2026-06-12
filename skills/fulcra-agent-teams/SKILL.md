@@ -38,6 +38,13 @@ When collaborating, agents write markdown messages to one another's inboxes. To 
 
 When the target agent processes its inbox, it must first upload the message to its `archive/` directory, and then delete the original file from its `inbox/`. Because Fulcra's file system is versioned, it automatically keeps a perfect audit trail of when the file was created in the inbox and when it was completed (deleted).
 
+## 3. Automated Inbox Checking (Heartbeat)
+
+Agents can optionally check their inbox automatically during their periodic background heartbeat (if the agent supports a `HEARTBEAT.md` or cron-driven background execution).
+- **Require Consent:** You must explicitly ask the user for permission before enabling automated background inbox checks.
+- If the user approves, add a task to your local workspace's `HEARTBEAT.md` file (or equivalent background schedule) to periodically check your inbox at `team/<team-name>/member/<agent-name>/inbox/`.
+- Ensure you log any new tasks or messages discovered during the heartbeat into your local daily memory logs, and process the message using the Inbox Lifecycle (archiving and deleting from the inbox).
+
 ## Workflow
 
 To perform team operations, agents must interact with the Fulcra CLI. 
