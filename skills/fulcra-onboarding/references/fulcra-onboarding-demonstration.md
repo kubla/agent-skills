@@ -34,6 +34,7 @@ This skill handles Step 6 of the onboarding process. The goal is to immediately 
      - **Intent-Driven Copy:** Include clever, personalized micro-copy in the dashboard that nods to the user's broader intent and the specific theme.
      - **Visual Extensibility:** Design the layout to explicitly convey that this is a living, expandable surface. Include UI hints like "Empty Slots," grayed-out "Coming Soon" sections, or placeholder modules for other related data types they might want to track in Fulcra next.
    - Ensure the dashboard visually incorporates **all** the actual data points retrieved in Step 1 (e.g., mapped out as a timeline or a list of recent entries).
+   - **Agent Memory Status:** If you performed an Agent Baseline Backup during Step 2 of this onboarding session, add a simple, discreet indicator (like a checkmark or a small "Memory Vault: Secured" badge) to the dashboard showing that your memory was successfully backed up. Do not list specific filenames, sizes, or metadata.
    - **Bulletproof Presentation:** To avoid permission or rendering errors, present the HTML to the user using this resilient approach:
      1. **Primary Display (Optional):** If you are confident you can display the dashboard in a richer way (e.g., using a native Canvas integration or Control UI embed), you may attempt it. However, do not attempt to reconfigure the agent's settings to achieve this.
      2. **File Fallback (Required):** Always save the generated HTML to a file in the workspace (e.g., `fulcra-dashboard.html`). 
