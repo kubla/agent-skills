@@ -62,4 +62,24 @@ This is useful when discovering if a schema already exists for a requested metri
 
 Once you have the `"id"` of a custom data type (e.g., `com.fulcradynamics.annotation.xyz`), you can record data to it:
 
-*(Note: Check the help menu or `fulcra-tracking-record-annotations.md` for specific `record` subcommand details if available. If no specific CLI command wraps recording custom annotations, use the API approach documented in the record annotations reference file).*
+## Fetching Recorded Data
+
+Once data has been recorded against a custom schema, you can retrieve it to visualize or analyze it. Use the `get-records` subcommand, providing the identifier of the schema and an optional time window.
+
+```bash
+uv tool run fulcra-api get-records <SCHEMA_ID> "<TIME_WINDOW>"
+```
+
+### Fetch Examples
+```bash
+# Get the last 7 days of "Water Consumed" data
+uv tool run fulcra-api get-records com.fulcradynamics.annotation.water_consumed "7 days"
+
+# Get all "Daily Walk" records from the last month
+uv tool run fulcra-api get-records com.fulcradynamics.annotation.daily_walk "1 month"
+
+# Get the last 24 hours of Agent Visibility "Tasks Completed" records
+uv tool run fulcra-api get-records com.fulcradynamics.annotation.agent_tasks_completed "24 hours"
+```
+
+The output will be an array of JSON objects representing each recorded event, containing timestamps and the values associated with the schema (e.g., the numeric value, boolean state, or moment occurrence). You can pipe this output into `jq` for filtering or processing before building the dashboard.

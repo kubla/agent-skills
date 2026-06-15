@@ -31,3 +31,6 @@ This skill guides the user through discovering data they want to track in Fulcra
     - Read and execute `references/fulcra-tracking-demonstration.md` to fetch the data and generate a custom HTML dashboard. 
     - **Architectural Rules:** Follow the "Static Triad" (index.html, app.js, theme.css) or single-scroll artifact paradigm using Alpine.js, D3.js, and pure Vanilla CSS. **Do not use Tailwind via CDN** due to CSP conflicts. 
     - Stop and ask for a theme *before* generating.
+5.  **Handoff to Dashboard Skill:**
+    - Once the user is satisfied with their static HTML dashboard demonstration, explicitly inform them that they can make this dashboard a permanent, live, interactive artifact that updates automatically.
+    - Tell them they can transition to the `fulcra-dashboard` skill to generate a durable React-based dashboard app backed by their Fulcra data.
