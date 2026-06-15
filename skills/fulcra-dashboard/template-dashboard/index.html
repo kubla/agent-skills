@@ -8,15 +8,6 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="envoy.js"></script>
-
-<script>
-window.onerror = function(msg, url, lineNo, columnNo, error) {
-    fetch('/api/chat', {method: 'POST', body: JSON.stringify({error: msg, line: lineNo})});
-};
-window.addEventListener('unhandledrejection', function(event) {
-    fetch('/api/chat', {method: 'POST', body: JSON.stringify({promiseError: event.reason ? event.reason.message : 'Unknown'})});
-});
-</script>
 </head>
 <body class="bg-gray-50 text-gray-900 font-sans min-h-screen relative" x-data="dashboard()">
     
@@ -58,35 +49,10 @@ window.addEventListener('unhandledrejection', function(event) {
             <!-- Left Column: Core Metrics & Agent Vault -->
             <div class="bento-col-left">
 
-                <!-- Agent Vault -->
-                <section class="card glass-panel local-only">
-                    <div class="card-header">
-                        <div class="header-icon-box">💾</div>
-                        <h2 class="timeline-title">Agent Vault</h2>
-                    </div>
-                    <div class="logs-container">
-                        <a href="/api/download?file=agent/treecle/memory/memory.gz" class="log-entry modern-entry" style="text-decoration: none;">
-                            <div class="entry-time"><div class="time-dot" style="background-color: var(--chart-line-1);"></div></div>
-                            <div class="entry-content">
-                                <div class="entry-header">
-                                    <strong class="entry-label">memory.gz</strong>
-                                    <span class="entry-value" style="font-size: 0.8rem; color: var(--text-muted);">Archive</span>
-                                </div>
-                                <p class="entry-note">Click to download</p>
-                            </div>
-                        </a>
-                        <a href="/api/download?file=agent/treecle/memory/top_of_mind.md" class="log-entry modern-entry" style="text-decoration: none;">
-                            <div class="entry-time"><div class="time-dot" style="background-color: var(--chart-line-1);"></div></div>
-                            <div class="entry-content">
-                                <div class="entry-header">
-                                    <strong class="entry-label">top_of_mind.md</strong>
-                                    <span class="entry-value" style="font-size: 0.8rem; color: var(--text-muted);">Current State</span>
-                                </div>
-                                <p class="entry-note">Click to download</p>
-                            </div>
-                        </a>
-                    </div>
-                </section>
+                <!-- Agent Vault
+                     [DEPRECATED/REMOVED]: Local memory downloads are removed from the default dashboard to prevent accidental exfiltration.
+                     This placeholder remains if a user explicitly requests a secure, local-only viewer module to be built.
+                -->
                 
                 <!-- Records Processed Chart -->
                 <section class="card glass-panel bar-chart-card" x-show="recordsProcessed.length > 0" x-data="barChartComponent()" x-effect="updateChart(recordsProcessed)">
