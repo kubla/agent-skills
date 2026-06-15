@@ -60,7 +60,7 @@ This is useful when discovering if a schema already exists for a requested metri
 
 ## Recording Data
 
-Once you have the `"id"` of a custom data type (e.g., `com.fulcradynamics.annotation.xyz`), you can record data to it:
+Once you have the `"id"` of a custom data type (e.g., `com.fulcradynamics.annotation.xyz`), you can record data to it by following the instructions in the `fulcra-tracking-record-annotations.md` reference file.
 
 ## Fetching Recorded Data
 
