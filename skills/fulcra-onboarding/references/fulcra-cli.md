@@ -101,7 +101,7 @@ The `create` command will output the JSON definition of the new data type. Make 
 
 ## Fulcra File Store & Open Knowledge Format (OKF)
 
-The Fulcra File Store is an environment-agnostic remote filesystem accessed via the `fulcra-api file` commands. When storing text and markdown data in the file store (like memory or shared team files), agents must adhere to the **Open Knowledge Format (OKF)** standard (v0.1) to ensure the file store remains understandable to users and other agents, and to provide auditability.
+The Fulcra File Store is an environment-agnostic remote filesystem accessed via the `fulcra-api file` commands. When storing text and markdown data in the file store (like memory or shared team files), agents must adhere to the **Open Knowledge Format (OKF)** standard (v0.1) to ensure the file store remains understandable to users and other agents, and to provide auditability. You can read the full OKF specification here: [https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md).
 
 ### Core OKF Principles
 *   **Markdown + YAML Frontmatter:** All knowledge concepts should be written as `.md` files containing a YAML frontmatter block at the top, bordered by `---`. The frontmatter must contain at least a `type: <Type name>` field, and may optionally include `title:`, `description:`, `tags:`, etc.
