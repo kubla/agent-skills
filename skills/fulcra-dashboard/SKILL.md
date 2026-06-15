@@ -1,6 +1,6 @@
 ---
 name: fulcra-dashboard
-description: "Builds a highly customizable, interactive HTML dashboard using Alpine.js, modern Vanilla CSS, and a Python backend to display private data from the user's Fulcra data store. Use this skill when the user wants a graphical web dashboard instead of ASCII charts to view their compiled Fulcra insights."
+description: "Builds a highly customizable, interactive HTML dashboard using Alpine.js, modern Vanilla CSS, and a Python backend to display private data from the user's Fulcra data store locally. Includes workflows to securely export a sanitized, non-interactive version for public sharing."
 homepage: "https://github.com/fulcradynamics/agent-skills"
 license: "MIT"
 user-invocable: true
@@ -9,7 +9,13 @@ metadata: { "openclaw": { "emoji": "📊" } }
 
 # Fulcra Dashboard
 
-This skill provides the automated setup for a lightweight, build-less web dashboard. It relies entirely on **Alpine.js** for state management and **Vanilla CSS** for styling. It eschews complex frameworks (like SvelteKit) and utility-class libraries in favor of a "Single-Scroll Artifact" or a "Static Triad" that is instantly deployable to simple hosts like GitHub Pages without any build tools or Content Security Policy conflicts.
+This skill provides the automated setup for a lightweight, build-less web dashboard. It relies entirely on **Alpine.js** for state management and **Vanilla CSS** for styling. It eschews complex frameworks (like SvelteKit) and utility-class libraries in favor of a "Single-Scroll Artifact" or a "Static Triad".
+
+## Local First & Secure Exports
+
+This dashboard is designed fundamentally as a **local, private interface**. By default, it runs on localhost using a Python server, granting it safe access to the user's private data, local agent memory (`memory.gz`), and enabling interactive features like a Chat Envoy that triggers local agent shell commands.
+
+**Crucially:** The local application and its sensitive capabilities must NEVER be published to the public internet directly. If the user wishes to share a dashboard, you must generate a separate, sanitized **export** that strips out the Python backend, interactive agent features, and unapproved private data.
 
 ## Architecture Decrees
 
@@ -88,15 +94,17 @@ Do not assume this skill is always run immediately after `fulcra-onboarding`.
      python3 server.py 8081 > dev.log 2>&1 &
      ```
    - Provide the user with the localhost link.
-6. **Chat Envoy & GitHub Deployment:** 
-   - The dashboard includes a chat envoy component (default title "Relay") and an Agent Vault memory component.
-   - **SECURITY CLARIFICATION FOR AGENT AND USER:** The dashboard is a live interactive application. When running locally, it can display highly private data and can optionally be configured to send commands directly to you (the agent) via the Chat Envoy. It is safe to publish the local chat and memory widgets to GitHub Pages because they rely entirely on the local Python backend (`server.py`) as a bridge. No chat history or memory files (`memory.gz`, `top_of_mind.md`) are copied into the repository or published to the public web by those widgets. When the dashboard is deployed remotely (like on GitHub Pages), the layout natively detects that it is not running on localhost and safely hides the chat and memory components to prevent broken links or user confusion.
-   - **GitHub Pages Publishing (Requires Consent & Preview):** It can also be used to publish a shared version with limited data to places like GitHub Pages, but the user needs to make sure they are not publishing anything they want to keep private. **It is your responsibility as the agent to make sure the user knows exactly what will be shared.**
-   - Before creating or pushing a public GitHub Pages repository, explicitly ask if they would like to publish this dashboard live to the internet.
-   - **MANDATORY PREVIEW:** You must show the user a preview of exactly what files and data (including the `data.json`, `.jsonl` timeline exports, images, and generated summary text) will be published to the public web. You must wait for their explicit confirmation that they are comfortable making this specific data public before proceeding.
-   - If they agree, ensure the `gh` (GitHub CLI) is installed and authenticated (`gh auth status`). If it is not, provide instructions or execute the installation (`brew install gh` or equivalent) and wait for the user to complete `gh auth login`.
-   - Once authenticated, create the repository and push the code (`gh repo create <name> --public --source=. --remote=origin --push`).
-   - *Crucially*, after pushing, execute the command to enable GitHub pages for the repository from the main branch: `gh api repos/{owner}/{repo}/pages -X POST -f "source[branch]=main" -f "source[path]=/"`.
+6. **GitHub Publication (Requires Consent & Preview):**
+   - The user may wish to publish a version of their dashboard to the public internet (e.g., via GitHub Pages).
+   - **MANDATORY ISOLATION & PREVIEW:** The local dashboard may contain highly private data. You MUST NOT push the local directory to GitHub. Instead:
+     1. Create a separate `public-export` directory.
+     2. Copy ONLY the structural files (`index.html`, `app.js`, `theme.css`) and explicitly approved data files (e.g., specific `.jsonl` files, sanitized `data.json`, and images) into this export directory.
+     3. Start a new local server on a different port (e.g., 8082) serving ONLY the `public-export` directory.
+     4. Provide the user with this new localhost link and explicitly ask them to verify that the data shown is safe for public consumption.
+   - Wait for their explicit confirmation before proceeding.
+   - If they agree, ensure the `gh` (GitHub CLI) is installed and authenticated (`gh auth status`).
+   - Navigate into the `public-export` directory, initialize git, create the repository, and push (`git init && git add . && git commit -m "Initial public export" && gh repo create <name> --public --source=. --remote=origin --push`).
+   - Execute the command to enable GitHub pages: `gh api repos/{owner}/{repo}/pages -X POST -f "source[branch]=main" -f "source[path]=/"`.
    - Provide the user with the final public `https://<username>.github.io/<repo>/` URL.
 7. **Handoff & Next Steps:**
    - Once the user has seen the live local dashboard, do not just stop. Outline possible next directions to keep the momentum going:
