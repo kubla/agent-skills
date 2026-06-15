@@ -19,6 +19,7 @@ This skill guides the user through discovering data they want to track in Fulcra
 ## Workflow
 
 1.  **User Intent Discovery:** 
+    - Read the `references/fulcra-tracking-cli.md` file to understand the custom tracking CLI commands.
     - Read and execute `references/fulcra-tracking-discovery.md` to uncover what the user wants to track and pitch the Universal Agent Visibility Package.
 2.  **Data Modeling:** 
     - Use the `fulcra-api data-type create` command to create the custom schemas based on the user's intent. 
