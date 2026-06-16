@@ -19,6 +19,11 @@ Because an agent's memory (e.g., `MEMORY.md`, `IDENTITY.md`, `SOUL.md`, and the 
 For core memory operations, agents use the standardized prefix: `agent/<lowercase-agent-name>/memory/`.
 This dedicated directory tracks the agent's state. It must conform to the Open Knowledge Format (OKF), meaning it contains an `index.md`, a `log.md`, and markdown concept files like `progress.md`. Any binary files (like the backup archive) must be stored in an `artifact/` subdirectory.
 
+**IMPORTANT OKF EFFICIENCY DIRECTIVE:** While OKF compliance is mandatory, it must not become cumbersome.
+- **DO NOT** attempt to index every individual file, especially not transient or highly repetitive files like individual messages inside an `inbox/` subdirectory. 
+- For directories that contain many small or transient items (like an `inbox/` or `queue/`), simply list the directory itself in the `index.md` with a high-level description of its purpose (e.g., "Contains unread messages from the web dashboard").
+- Keep the `index.md` and `log.md` focused on top-level structure and significant milestones (like the `progress.md` and the `memory.tar.gz` artifact) so they remain useful but lightweight.
+
 ### 2. Periodic Backups & Progress Reports
 Agents should run a backup process periodically (e.g., triggered by `HEARTBEAT.md`). Every time an agent backs up its state:
 1. It creates and uploads the compressed `memory.tar.gz` archive to `agent/<agent-name>/memory/artifact/memory.tar.gz`.
