@@ -48,7 +48,7 @@ class DashboardHandler(http.server.SimpleHTTPRequestHandler):
             
             # If the last message is from the user, and the agent is offline, inject an error message
             if messages and messages[-1].get("role") == "user" and is_offline:
-                error_msg = {"role": "system", "text": "Notice: The agent has not checked messages recently. Please return to your OpenClaw session and ensure you have asked the agent to 'connect the chat envoy' and that the script is running."}
+                error_msg = {"role": "system", "text": "Notice: The agent has not checked messages recently. Please return to your agent session and ensure you have asked the agent to 'connect the chat envoy' and that the script is running."}
                 messages.append(error_msg)
                 history["messages"] = messages
                 self.save_chat_history(history)
