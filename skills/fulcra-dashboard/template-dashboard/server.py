@@ -7,10 +7,21 @@ import sys
 PORT = int(sys.argv[1]) if len(sys.argv) > 1 else int(os.environ.get("PORT", 8081))
 
 class DashboardHandler(http.server.SimpleHTTPRequestHandler):
-    # Simulated chat history kept in memory while the server runs
-    chat_history = [
-        {"role": "assistant", "text": "Telemetry link established. Local relay online. Awaiting parameters. Note: if you have not explicitly asked the agent to connect the envoy, messages sent here will not reach them."}
-    ]
+    # If chat.json exists, we'll load it, otherwise use a default
+    def get_chat_history(self):
+        if os.path.exists('chat.json'):
+            try:
+                with open('chat.json', 'r') as f:
+                    return json.load(f)
+            except:
+                pass
+        return [
+            {"role": "assistant", "text": "Telemetry link established. Local relay online. Awaiting parameters. Note: if you have not explicitly asked the agent to connect the envoy, messages sent here will not reach them."}
+        ]
+
+    def save_chat_history(self, history):
+        with open('chat.json', 'w') as f:
+            json.dump(history, f, indent=2)
 
     def do_GET(self):
         # Serve the chat history for local-only components
@@ -18,7 +29,26 @@ class DashboardHandler(http.server.SimpleHTTPRequestHandler):
             self.send_response(200)
             self.send_header('Content-type', 'application/json')
             self.end_headers()
-            self.wfile.write(json.dumps({"messages": self.chat_history}).encode())
+            self.wfile.write(json.dumps({"messages": self.get_chat_history()}).encode())
+            return
+            
+        # Agent endpoint to retrieve unread messages and mark as read
+        if self.path == '/api/chat/unread':
+            history = self.get_chat_history()
+            unread = [msg for msg in history if msg.get("role") == "user" and not msg.get("read")]
+            
+            # Mark them as read
+            for msg in history:
+                if msg.get("role") == "user":
+                    msg["read"] = True
+            
+            if unread:
+                self.save_chat_history(history)
+                
+            self.send_response(200)
+            self.send_header('Content-type', 'application/json')
+            self.end_headers()
+            self.wfile.write(json.dumps({"unread_messages": unread}).encode())
             return
             
         # File Browser backend
@@ -90,25 +120,22 @@ class DashboardHandler(http.server.SimpleHTTPRequestHandler):
                 data = json.loads(post_data)
                 user_msg = data.get('message', '')
                 
-                # Append user message to history
+                history = self.get_chat_history()
+                
+                # Append user message to history and mark unread
                 if user_msg:
-                    self.chat_history.append({"role": "user", "text": user_msg})
-                
-                # Future: Route this via OpenClaw CLI
-                print(f"Received chat request: {data}")
-                
-                # Generate a simulated response
-                simulated_reply = {"role": "system", "text": "Notice: The Relay is currently dormant. To complete setup, return to your OpenClaw session and explicitly instruct the agent to 'connect the chat envoy', then wait for them to confirm before trying again."}
-                self.chat_history.append(simulated_reply)
+                    history.append({"role": "user", "text": user_msg, "read": False})
+                    self.save_chat_history(history)
                 
                 self.send_response(200)
                 self.send_header('Content-type', 'application/json')
                 self.end_headers()
                 
-                # Return only the new messages to append
+                # Check if agent is connected (if there's a recent assistant reply, or if we assume it's polling)
+                # For now, we just acknowledge receipt.
                 response = {
                     "status": "success", 
-                    "messages": [simulated_reply]
+                    "messages": []  # The frontend will poll or agent will reply later
                 }
                 self.wfile.write(json.dumps(response).encode())
                 
