@@ -52,11 +52,9 @@ Capture creates durable records on the user's Fulcra timeline. Be conservative: 
 
 ### How to Capture (Recording)
 
-When capturing a preference, construct a JSON payload for the `data` field containing:
-- `key`: A dot-namespaced category (e.g., `dining.cuisine.thai`, `schedule.no-meetings-before`, `comms.tone.concise`).
-- `value`: The preference value.
-- `scope`: The applicable scope (e.g., `global`, `claude-code`, `openclaw`).
-- `strength`: A numeric weight (e.g., `1.0` for strong like, `-1.0` for strong dislike/aversion).
+When capturing a preference, you must construct a single stringified JSON object for the `data` field that conforms to the `MomentAnnotation` spec. Because the spec expects a single `note` field, you must serialize your entire preference structure into a string and store it inside the `note` property. 
+
+The inner serialized string should represent the preference logically (e.g., `key`, `value`, `scope`, `strength`).
 
 Record the preference using the Fulcra Ingest API (injecting the token securely):
 
@@ -74,7 +72,7 @@ curl -i -X POST \
         "<USER_PREFERENCE_ID>"
       ]
     },
-    "data": "{\"key\": \"comms.tone.concise\", \"value\": true, \"scope\": \"global\", \"strength\": 1.0}"
+    "data": "{\"note\": \"{\\\"key\\\": \\\"comms.tone.concise\\\", \\\"value\\\": true, \\\"scope\\\": \\\"global\\\", \\\"strength\\\": 1.0}\"}"
   }' \
   https://api.fulcradynamics.com/ingest/v1/record
 ```
