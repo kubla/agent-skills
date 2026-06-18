@@ -41,12 +41,12 @@ Immediately after declaring the core onboarding complete, present the following 
 
 **Present this exact scannable menu to the user:**
 
-*   📊 **Agent Visibility & Custom Tracking:** Discover how to track custom data, agent visibility metrics, and visualize them using a custom dashboard.
-*   🧠 **Agent Memory Backup:** Back up agent memory and high level context directly to your Fulcra datastore.
-*   🤝 **Agent Coordination:** Set up shared team namespaces so your different agents can coordinate tasks.
-*   📱 **Get the App:** Download the iOS app for on-the-go logging and background sync.
-*   💻 **Context Web:** Explore your data on the desktop portal.
-*   ⚙️ **Cross-Platform Preferences:** Set up universal preferences across all your agents.
+1.  📊 **Agent Visibility & Custom Tracking:** Discover how to track custom data, agent visibility metrics, and visualize them using a custom dashboard.
+2.  🧠 **Agent Memory Backup:** Back up agent memory and high level context directly to your Fulcra datastore.
+3.  🤝 **Agent Coordination:** Set up shared team namespaces so your different agents can coordinate tasks.
+4.  📱 **Get the App:** Download the iOS app for on-the-go logging and background sync.
+5.  💻 **Context Web:** Explore your data on the desktop portal.
+6.  ⚙️ **Cross-Platform Preferences:** Set up universal preferences across all your agents.
 
 **When the user makes a choice, follow the corresponding path below:**
 
