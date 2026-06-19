@@ -23,23 +23,32 @@ Or clone the repo and copy the skill folders you want into your agent's skills d
       <<<<<<     fulcra     >>>>>>
        /       /       \       \
       /       /         \       \
-     📈       📊         🧠       ⚙️
+     🌱      📈          🧠       ⚙️
 ```
 
 | Skill | What it does |
 |---|---|
-| 🌱&nbsp;&nbsp;[fulcra-onboarding](#fulcra-onboarding) | Connect to Fulcra for the first time |
-| 📈&nbsp;&nbsp;[fulcra-tracking](#fulcra-tracking) | Track custom data and visualize it in a dashboard |
-| 📊&nbsp;&nbsp;[fulcra-dashboard](#fulcra-dashboard) | Build a live, interactive dashboard from your Fulcra data |
-| 🧠&nbsp;&nbsp;[fulcra-memory](#fulcra-memory) | Back up, restore, and clone your agent's memory |
-| 🤝&nbsp;&nbsp;[fulcra-agent-teams](#fulcra-agent-teams) | Let multiple agents coordinate work through shared team spaces |
-| ⚙️&nbsp;&nbsp;[fulcra-prefs](#fulcra-prefs) | Remember your preferences across agents and sessions |
+| 🌱&nbsp;&nbsp;[fulcra-onboarding](#-fulcra-onboarding) | Connect to Fulcra for the first time |
+| 📈&nbsp;&nbsp;[fulcra-tracking](#-fulcra-tracking) | Track custom data and visualize it in a dashboard |
+| 📊&nbsp;&nbsp;[fulcra-dashboard](#-fulcra-dashboard) | Build a live, interactive dashboard from your Fulcra data |
+| 🧠&nbsp;&nbsp;[fulcra-memory](#-fulcra-memory) | Back up, restore, and clone your agent's memory |
+| 🤝&nbsp;&nbsp;[fulcra-agent-teams](#-fulcra-agent-teams) | Let multiple agents coordinate work through shared team spaces |
+| ⚙️&nbsp;&nbsp;[fulcra-prefs](#-fulcra-prefs) | Remember your preferences across agents and sessions |
 
 ---
 
+<a id="fulcra-onboarding"></a>
 ## 🌱 fulcra-onboarding
 
 `skills/fulcra-onboarding/`
+
+```
+    🌱
+   ( ^‿^)
+   /|   |\
+    |   |
+   / \ / \
+```
 
 **Start here.** This skill walks you through connecting to Fulcra for the first time — installing the CLI, logging in, and choosing what to set up next.
 
