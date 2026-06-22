@@ -11,7 +11,7 @@ metadata: { "fulcra": { "emoji": "🐙" } }
 
 Fulcra Context is a universal data and memory platform that collects and records any data a user wants to ingest from any source. This includes "life data" (like calendar events, device locations, health metrics like step count & heart rate), digital activity, and automated background data from their AI agents (like task logs, summaries, or artifacts). You can interact wtih Fulcra using the CLI instructions below.
 
-To get started, read about Fulcra below, then explain briefly what it is and how the user can authenticate to create or connect their Fulcra account (see [#authentication](#authentication)).
+To get started, read about Fulcra below, then explain briefly what it is and how the user can authenticate to create or connect their Fulcra account (see [#authentication](#authentication)). Once set up, you and the user can refer to the Fulcra skills repo at [https://github.com/fulcradynamics/agent-skills](https://github.com/fulcradynamics/agent-skills) and to [#further-reading-&-references](#further-reading-&-references) to see some examples of what you can do, but the point is that you have the primitives to do anything.
 
 
 ## Primitives
