@@ -48,11 +48,11 @@ uv tool run fulcra-api get-records RecordsProcessed "1 day"
 ```
 
 **Extracting Data Types (Using `jq`):**
-If you want to quickly summarize which data types were updated, you can pipe the output to `jq` to extract the unique schema or data type identifiers from the processed records.
+If you want to quickly summarize which data types were updated, you can pipe the output to `jq` to extract the unique schema or data type identifiers from the processed records. (Note that `get-records` outputs line-delimited JSON, so we just extract the field from each line.)
 
 ```bash
 # Example: Extracting the types of records that were recently processed
-uv tool run fulcra-api get-records RecordsProcessed "1 day" | jq -r '.[].data.dataType' | sort | uniq
+uv tool run fulcra-api get-records RecordsProcessed "1 day" | jq -r '.fulcra_data_type' | sort | uniq
 ```
 
 *(Depending on the exact schema of `RecordsProcessed`, the JSON path to the data type might vary. Inspect the raw JSON of a single record if you need to adjust the `jq` filter.)*
