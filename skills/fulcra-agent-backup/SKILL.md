@@ -16,7 +16,7 @@ Because an agent's memory (e.g., `MEMORY.md`, `IDENTITY.md`, `SOUL.md`, and the 
 ## Primary Role: Memory & State Management
 
 ### 1. The Backup Format
-An agent must compress its core identity files (`SOUL.md`, `IDENTITY.md`, `MEMORY.md`, and the `memory/` directory) into a `memory.tar.gz` archive. This archive must also include a `README.md` that explains its purpose and usage constraints.
+An agent must compress its core identity files (`SOUL.md`, `IDENTITY.md`, `MEMORY.md`, and the `memory/` directory) into a `memory.tar.gz` archive. This archive must also include an `INSTRUCTIONS.md` file that you dynamically generate. It must explain that the backup was generated with the `fulcra-agent-backup` skill, include the URL to the skill (https://github.com/fulcradynamics/agent-skills/tree/main/skills/fulcra-agent-backup) for use when restoring or cloning, and include any other pertinent details or context you want to pass along to the agent that restores the archive.
 
 ### 2. Periodic Backups
 Agents should run a backup process periodically (e.g., triggered by `HEARTBEAT.md` or as part of the `fulcra-memory` OKF sync process). Every time an agent backs up its state, it creates and uploads the compressed `memory.tar.gz` archive to `agent/<agent-name>/memory/artifact/memory.tar.gz`.
