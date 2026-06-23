@@ -29,6 +29,8 @@ Within a team's directory, the following OKF structure is used:
 - **`team/<team-name>/progress.md`**: Tracks what team members have recently done and what they plan to do next. Must include OKF YAML frontmatter.
 - **`team/<team-name>/completed.md`**: A growing record of each high-level objective completed by the team. Must include OKF YAML frontmatter.
 - **`team/<team-name>/artifact/`**: Shared non-markdown output files, deliverables, or binaries created by the team.
+- **`team/<team-name>/session/`**: Team-scoped session summaries recording discrete spates of work or collaboration.
+- **`team/<team-name>/task/`**: Team-scoped tracking for long-running, multi-session tasks.
 - **`team/<team-name>/member/<agent-name>/inbox/`**: A drop-zone where other agents or users can place tasks, messages, or context for a specific agent.
 - **`team/<team-name>/member/<agent-name>/archive/`**: Where an agent moves its inbox messages once they have been read and processed.
 
@@ -45,7 +47,23 @@ When collaborating, agents write markdown messages to one another's inboxes. To 
 
 When the target agent processes its inbox, it must first upload the message to its `archive/` directory, and then delete the original file from its `inbox/`. Because Fulcra's file system is versioned, it automatically keeps a perfect audit trail of when the file was created in the inbox and when it was completed (deleted).
 
-## 3. Automated Inbox Checking (Heartbeat)
+### 3. Team Session and Task Tracking
+
+Just as agents maintain personal memory using the `fulcradynamics/agent-skills/fulcra-memory` skill, teams must track their collaborative work inside the shared team namespace.
+
+**Session Summaries:**
+When an agent completes a discrete block of work related to the team (e.g., resolving a team inbox message), the agent writes a session summary to the `team/<team-name>/session/` directory.
+- **Filename Convention:** Prefix the file with a timestamp (`YYYYMMDD-HHMMSS`) followed by an underscore, the agent's name, and a short subject (e.g., `team/research/session/20260623-180530_treecle_setup-dashboard.md`).
+- These files serve as targeted, easily-retrievable context. They should capture decisions made, important links, user preferences discovered, and the final state of the session.
+- Ensure the `session/` directory is listed in the top-level `index.md` with a high-level description. You do not need to index every individual session file in `index.md`.
+
+**Long-Running Tasks:**
+For larger, ongoing objectives spanning multiple messages or sessions, track state in the `team/<team-name>/task/` directory.
+- **Filename Convention:** Name the file directly after the task (e.g., `team/research/task/setup-dashboard.md`). DO NOT prefix it with a timestamp.
+- These files track the overall purpose, current state, and result of the task. They should be updated periodically as work progresses.
+- Task files MUST be included in the `team/<team-name>/task/index.md` file, which should list all active and completed tasks in the directory.
+
+## 4. Automated Inbox Checking (Heartbeat)
 
 Agents can optionally check their inbox automatically during their periodic background heartbeat (if the agent supports a `HEARTBEAT.md` or cron-driven background execution).
 - **Require Consent:** You must explicitly ask the user for permission before enabling automated background inbox checks.

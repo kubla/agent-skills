@@ -92,5 +92,21 @@ echo "- [$(date +%Y-%m-%d)] <Objective summary>" >> /tmp/team_completed.md
 # 3. Upload the updated file back to Fulcra
 uv tool run fulcra-api file upload /tmp/team_completed.md "team/<team_name>/completed.md"
 
-# 4. Also update the team log.md with the completion event.
+## 4. Team Session and Task Tracking
+
+When completing a discrete block of work or tracking a long-running project within the team, upload summaries to the team namespace rather than your personal memory namespace.
+
+**Step A: Uploading a Session Summary**
+When a team session concludes, create a concise markdown summary (with `type: Session Summary` frontmatter) and upload it.
+```bash
+# Filename convention: YYYYMMDD-HHMMSS_<agent-name>_<subject>.md
+uv tool run fulcra-api file upload /tmp/session-summary.md "team/<team_name>/session/20260623-180530_treecle_setup-dashboard.md"
+```
+
+**Step B: Updating a Task Tracker**
+For ongoing team objectives, update a task tracker (with `type: Task` frontmatter) and its index.
+```bash
+# Filename convention: <task-name>.md (No timestamp)
+uv tool run fulcra-api file upload /tmp/task-status.md "team/<team_name>/task/setup-dashboard.md"
+uv tool run fulcra-api file upload /tmp/task-index.md "team/<team_name>/task/index.md"
 ```
