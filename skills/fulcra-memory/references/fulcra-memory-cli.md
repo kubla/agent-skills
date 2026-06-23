@@ -53,32 +53,36 @@ uv tool run fulcra-api file upload memory/log.md "agent/<agent_name>/memory/log.
 uv tool run fulcra-api file upload memory/index.md "agent/<agent_name>/memory/index.md"
 ```
 
-## 2. Saving Session or Task Memory
+## 2. Saving Session Summaries
 
-When completing a significant task or when asked to remember specific session context, generate a summary file in the `session/` directory and upload it.
+When completing a spate of work or when asked to remember specific session context, generate a summary file in the `session/` directory and upload it.
 
 **Step A: Create the Session Summary**
-Generate a concise markdown file capturing the task's context, decisions, and outcomes. Make sure to use OKF YAML frontmatter.
-
-```bash
-cd ~/.openclaw/workspace
-mkdir -p memory/session
-
-# Create a descriptive filename based on the date and task
-cat << 'EOF' > memory/session/2026-06-23-setup-dashboard.md
----
-type: Session Summary
-date: 2026-06-23
-task: Setup Dashboard
----
-# Task Summary
-...
-EOF
-```
+Generate a concise markdown file capturing the session's context, decisions, and outcomes. Include OKF YAML frontmatter (`type: Session Summary`, `date: YYYY-MM-DD`). 
+- **Filename Convention:** Prefix the file with a timestamp (`YYYYMMDD-HHMMSS`) followed by an underscore and a short subject (e.g., `memory/session/20260623-180530_setup-dashboard.md`).
 
 **Step B: Upload to Fulcra**
 Upload the file to the `session/` namespace using the agent's name.
 
 ```bash
-uv tool run fulcra-api file upload memory/session/2026-06-23-setup-dashboard.md "agent/<agent_name>/memory/session/2026-06-23-setup-dashboard.md"
+uv tool run fulcra-api file upload memory/session/20260623-180530_setup-dashboard.md "agent/<agent_name>/memory/session/20260623-180530_setup-dashboard.md"
+```
+
+## 3. Managing Long-Running Tasks
+
+For longer-running tasks, create and periodically update a task tracking file in the `task/` directory.
+
+**Step A: Create or Update the Task File**
+Generate or update a markdown file with OKF YAML frontmatter (`type: Task`). Track the overall purpose, current state, and result of the task. Include references to any related artifacts or session summary files.
+- **Filename Convention:** Name the file directly after the task (e.g., `memory/task/setup-dashboard.md`). DO NOT prefix it with a timestamp.
+
+**Step B: Update the Task Index**
+Ensure `memory/task/index.md` is updated to include a link to the new or active task file.
+
+**Step C: Upload to Fulcra**
+Upload both the task file and the task index.
+
+```bash
+uv tool run fulcra-api file upload memory/task/setup-dashboard.md "agent/<agent_name>/memory/task/setup-dashboard.md"
+uv tool run fulcra-api file upload memory/task/index.md "agent/<agent_name>/memory/task/index.md"
 ```
