@@ -19,13 +19,13 @@ Because an agent's memory (e.g., `MEMORY.md`, `IDENTITY.md`, `SOUL.md`, and the 
 An agent must compress its core identity files (`SOUL.md`, `IDENTITY.md`, `MEMORY.md`, and the `memory/` directory) into a `memory.tar.gz` archive. This archive must also include an `INSTRUCTIONS.md` file that you dynamically generate. It must explain that the backup was generated with the `fulcra-agent-backup` skill, include the URL to the skill (https://github.com/fulcradynamics/agent-skills/tree/main/skills/fulcra-agent-backup) for use when restoring or cloning, and include any other pertinent details or context you want to pass along to the agent that restores the archive.
 
 ### 2. Periodic Backups
-Agents should run a backup process periodically (e.g., triggered by `HEARTBEAT.md` or as part of the `fulcra-memory` OKF sync process). Every time an agent backs up its state, it creates and uploads the compressed `memory.tar.gz` archive to `agent/<agent-name>/memory/artifact/memory.tar.gz`.
+Agents should run a backup process periodically (e.g., triggered by `HEARTBEAT.md` or as part of the `fulcra-memory` OKF sync process). Every time an agent backs up its state, it creates and uploads the compressed `memory.tar.gz` archive to `agent/<agent-name>/backup/artifact/memory.tar.gz`.
 
 **PRIVACY REQUIREMENT:** Before uploading `memory.tar.gz`, the agent MUST ensure it is not inadvertently uploading new sensitive personal user data or credentials. If any sensitive context was acquired during the session, the agent MUST ask the user for explicit consent before including it in persistent versioned storage.
 
 ### 3. Versioned Storage
 Fulcra's file upload system inherently versions files uploaded to the same path.
-- The target path structure for backups is: `agent/<lowercase-agent-name>/memory/artifact/memory.tar.gz`
+- The target path structure for backups is: `agent/<lowercase-agent-name>/backup/artifact/memory.tar.gz`
 - By repeatedly uploading to this exact same path, Fulcra creates a historical timeline of the agent's memory states.
 
 ### 4. Safe Rollbacks (The "Undo" Requirement)
@@ -39,7 +39,7 @@ Cloning involves two agents: the "old" (source) agent and the "new" (destination
   You must perform a complete backup of your current state. Once the backup is successful, tell the user the exact Fulcra path where the backup is stored, and instruct them to install the `fulcra-agent-backup` skill on the new agent and ask it to clone from that path.
 
 - **If you are the NEW (destination) agent:**
-  You must first ask the user to confirm that the old agent has recently backed itself up using the `fulcra-agent-backup` skill. If they haven't, instruct the user to have the old agent install the skill and perform a backup. Ask the user for the exact Fulcra backup path (e.g., `agent/<old-agent-name>/memory/artifact/memory.tar.gz`). Once provided, you can download that archive and extract it. After successfully cloning the old agent's memory and identity files into your workspace, you MUST briefly demonstrate the successful clone to the user by explicitly mentioning a few specific details you have just "learned" or remembered from the newly extracted files.
+  You must first ask the user to confirm that the old agent has recently backed itself up using the `fulcra-agent-backup` skill. If they haven't, instruct the user to have the old agent install the skill and perform a backup. Ask the user for the exact Fulcra backup path (e.g., `agent/<old-agent-name>/backup/artifact/memory.tar.gz`). Once provided, you can download that archive and extract it. After successfully cloning the old agent's memory and identity files into your workspace, you MUST briefly demonstrate the successful clone to the user by explicitly mentioning a few specific details you have just "learned" or remembered from the newly extracted files.
 
 **CLONING ORIENTATION & NAMESPACE COLLISION WARNING:**
 If the user installs this skill specifically to clone an agent, orient your interaction around the cloning workflow rather than standard backup procedures. Furthermore, if you are the NEW agent and the user intends to continue backing you up to the exact same Fulcra path as the original agent (e.g. because you share the same name), you MUST explicitly ask the user to confirm that no other active agents are currently backing up to that path. Otherwise, the memories will interleave and cause confusion.
