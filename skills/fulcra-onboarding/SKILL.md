@@ -42,10 +42,11 @@ Immediately after declaring the core onboarding complete, present the following 
 **Present this exact scannable menu to the user:**
 
 1.  📊 **Agent Visibility & Custom Tracking:** Discover how to track custom data, agent visibility metrics, and visualize them using a custom dashboard.
-2.  🧠 **Agent Memory & Knowledge:** Record high-level knowledge, tasks, and progress directly to your Fulcra datastore.
-3.  🤝 **Agent Coordination:** Set up shared team namespaces so your different agents can coordinate tasks.
-4.  📱 **Get the App:** Download the iOS app for on-the-go logging and background sync.
-5.  💻 **Context Web:** Explore your data on the desktop portal.
+2.  📡 **Situational Awareness:** Enable your agent to proactively scan for recent updates, team messages, and new data.
+3.  🧠 **Agent Memory & Knowledge:** Record high-level knowledge, tasks, and progress directly to your Fulcra datastore.
+4.  🤝 **Agent Coordination:** Set up shared team namespaces so your different agents can coordinate tasks.
+5.  📱 **Get the App:** Download the iOS app for on-the-go logging and background sync.
+6.  💻 **Context Web:** Explore your data on the desktop portal.
 
 **When the user makes a choice, follow the corresponding path below:**
 
@@ -53,17 +54,21 @@ Immediately after declaring the core onboarding complete, present the following 
 1. Explain that you can set up data schemas to track their custom data, as well as an "Agent Visibility Package" to record agent activities, and visualize it all on a custom HTML dashboard.
 2. If they consent and are interested, transition them to the `fulcradynamics/agent-skills/fulcra-tracking` skill.
 
-#### Path 2: Agent Memory & Knowledge
+#### Path 2: Situational Awareness
+1. Explain that you can set up a proactive habit where the agent checks Fulcra for new files, team messages, and recently ingested data at the start of new conversations, keeping it highly context-aware.
+2. If they consent, transition them to the `fulcradynamics/agent-skills/fulcra-situational-awareness` skill to enable this behavior.
+
+#### Path 3: Agent Memory & Knowledge
 1. Explain that you can record high-level knowledge, track tasks, and log ongoing progress directly to their Fulcra datastore in a structured, readable way.
 2. If they consent, transition them to the `fulcradynamics/agent-skills/fulcra-memory` skill to set up their memory tracking.
 
-#### Path 3: Agent Coordination
+#### Path 4: Agent Coordination
 1. Explain that Fulcra isn't just for dashboards—it acts as a universal backend that allows multiple agents to coordinate their work using shared Team namespaces.
 2. If they consent and are interested, transition them to the `fulcradynamics/agent-skills/fulcra-agent-teams` skill so they can get set up.
 
-#### Path 4: Get the App
+#### Path 5: Get the App
 1. Direct them to the [Fulcra Context iOS app](https://apps.apple.com/app/id1633037434).
 2. Mention it unlocks automatic background sync (Health, location, calendar). **PRIVACY WARNING:** Explicitly inform the user these are highly sensitive data types requiring explicit iOS permissions, and they have full control to decline.
 
-#### Path 5: Context Web
+#### Path 6: Context Web
 1. Direct them to [Context Web](https://context.fulcradynamics.com/) to explore their datastore on desktop.
