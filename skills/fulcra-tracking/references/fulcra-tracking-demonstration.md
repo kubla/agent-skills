@@ -49,4 +49,4 @@ This skill handles the final demonstration phase of the "Agent Visibility & Dash
 
 Wait for the user's reaction to the generated dashboard and your offer to build a real interactive app.
 - **If they want to build the interactive dashboard:** Transition them directly to the `fulcradynamics/agent-skills/fulcra-dashboard` skill.
-- **If they decline or just want to see other options:** Return control to the main `fulcradynamics/agent-skills/fulcra-tracking` flow to present the Next Steps menu again (omitting the Agent Visibility path since they just completed it).
+- **If they decline or just want to see other options:** Return control to the main `fulcra-tracking` flow to present the Next Steps menu again (omitting the Agent Visibility path since they just completed it).
