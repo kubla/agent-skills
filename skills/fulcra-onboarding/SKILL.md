@@ -42,7 +42,7 @@ Immediately after declaring the core onboarding complete, present the following 
 **Present this exact scannable menu to the user:**
 
 1.  📊 **Agent Visibility & Custom Tracking:** Discover how to track custom data, agent visibility metrics, and visualize them using a custom dashboard.
-2.  🧠 **Agent Memory Backup:** Back up agent memory and high level context directly to your Fulcra datastore.
+2.  🧠 **Agent Memory & Knowledge:** Record high-level knowledge, tasks, and progress directly to your Fulcra datastore.
 3.  🤝 **Agent Coordination:** Set up shared team namespaces so your different agents can coordinate tasks.
 4.  📱 **Get the App:** Download the iOS app for on-the-go logging and background sync.
 5.  💻 **Context Web:** Explore your data on the desktop portal.
@@ -53,9 +53,9 @@ Immediately after declaring the core onboarding complete, present the following 
 1. Explain that you can set up data schemas to track their custom data, as well as an "Agent Visibility Package" to record agent activities, and visualize it all on a custom HTML dashboard.
 2. If they consent and are interested, transition them to the `fulcra-tracking` skill.
 
-#### Path 2: Agent Memory Backup
-1. Explain that you can back up agent memory and high level context directly to their datastore. 
-2. If they consent, transition them to the `fulcra-memory` skill to perform the backup.
+#### Path 2: Agent Memory & Knowledge
+1. Explain that you can record high-level knowledge, track tasks, and log ongoing progress directly to their Fulcra datastore in a structured, readable way.
+2. If they consent, transition them to the `fulcra-memory` skill to set up their memory tracking.
 
 #### Path 3: Agent Coordination
 1. Explain that Fulcra isn't just for dashboards—it acts as a universal backend that allows multiple agents to coordinate their work using shared Team namespaces.
