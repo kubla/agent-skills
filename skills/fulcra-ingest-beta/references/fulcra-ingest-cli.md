@@ -1,4 +1,4 @@
-# Fulcra CLI for Tracking & Dashboards
+# Fulcra CLI for 3rd-Party Data Ingestion
 
 The `fulcra-api` CLI is the primary way to interact with the Fulcra Life API for creating custom data schemas and recording annotations. It can be installed and run via `uv tool run fulcra-api`.
 
@@ -8,7 +8,7 @@ For general information about installing, authenticating, and using the `fulcra-
 
 You can read that file directly to understand authentication, querying standard metrics, and platform context. The rest of this document focuses strictly on the commands necessary for custom tracking and dashboard creation.
 
-## Custom Tracking Usage
+## 3rd-Party Data Ingestion Usage
 
 Rely on the `--help` flag for in-depth documentation on the command and individual subcommands:
 ```bash
@@ -27,25 +27,26 @@ uv tool run fulcra-api data-type create <BASE_DATA_TYPE> "<NAME>" --description 
 
 ### Base Data Types
 Run `uv tool run fulcra-api catalog --base-types-only` to see the exact IDs of the base types you can build upon.
-The most common base types for custom tracking are:
-*   `MomentAnnotation`: For tracking occurrences of an event without a specific measurement (e.g., "Took Medication").
-*   `NumericAnnotation`: For tracking a specific quantity or number (e.g., "Cups of Coffee").
-*   `BooleanAnnotation`: For tracking simple Yes/No or True/False states (e.g., "Did I go to the gym?").
-*   `ScaleAnnotation`: For 1-5 scales (e.g., mood, pain, intensity).
+The most common base types for 3rd-party data ingestion are:
+*   `DurationAnnotation`: For tracking a span of time (e.g., "Spotify Song Stream", "Sleep Tracker Segment").
+*   `MomentAnnotation`: For tracking occurrences of an event without a specific duration (e.g., "Netflix Video Watched", "YouTube Video View").
+*   `NumericAnnotation`: For tracking a specific quantity or number (e.g., "Amazon Purchase Amount", "Apple Health Step Count").
+*   `BooleanAnnotation`: For tracking simple Yes/No or True/False states (e.g., "Habit Tracker Export").
+*   `ScaleAnnotation`: For bounded scales like 1-5 or 1-10 (e.g., "Letterboxd Movie Rating").
 
 ### Creation Examples
 ```bash
-# Create a simple moment annotation
-uv tool run fulcra-api data-type create MomentAnnotation "Daily Walk" --description "Went for a walk today"
+# Create a moment annotation for Netflix viewing history
+uv tool run fulcra-api data-type create MomentAnnotation "Netflix Export" --description "com.fulcradynamics.annotation.ingest.netflix"
 
-# Create a boolean annotation
-uv tool run fulcra-api data-type create BooleanAnnotation "Ate Breakfast" --description "Did I eat breakfast?"
+# Create a duration annotation for Spotify streams
+uv tool run fulcra-api data-type create DurationAnnotation "Spotify Export" --description "com.fulcradynamics.annotation.ingest.spotify"
 
-# Create a numeric annotation
-uv tool run fulcra-api data-type create NumericAnnotation "Water Consumed" --description "Ounces of water drank"
+# Create a numeric annotation for Amazon purchases
+uv tool run fulcra-api data-type create NumericAnnotation "Amazon Purchase Export" --description "com.fulcradynamics.annotation.ingest.amazon"
 
-# Create a scale annotation
-uv tool run fulcra-api data-type create ScaleAnnotation "Daily Mood" --description "1-5 scale of mood"
+# Create a scale annotation for Letterboxd ratings
+uv tool run fulcra-api data-type create ScaleAnnotation "Letterboxd Export" --description "com.fulcradynamics.annotation.ingest.letterboxd"
 ```
 
 The `create` command will output the JSON definition of the new data type. Make sure to capture the returned `"id"` value (e.g., `com.fulcradynamics.annotation.12345`), as you will need it to record data against this schema.
@@ -72,14 +73,11 @@ uv tool run fulcra-api get-records <BASE_TYPE> "<TIME_WINDOW>" | jq '[.[] | sele
 
 ### Fetch Examples
 ```bash
-# Get the last 7 days of "Water Consumed" data (a NumericAnnotation)
-uv tool run fulcra-api get-records NumericAnnotation "7 days" | jq '[.[] | select(.source_id == "com.fulcradynamics.annotation.water_consumed")]'
+# Get the last 7 days of "Spotify Export" data (a DurationAnnotation)
+uv tool run fulcra-api get-records DurationAnnotation "7 days" | jq '[.[] | select(.source_id == "<spotify_source_id_from_creation>")]'
 
-# Get all "Daily Walk" records from the last month (a MomentAnnotation)
-uv tool run fulcra-api get-records MomentAnnotation "1 month" | jq '[.[] | select(.source_id == "com.fulcradynamics.annotation.daily_walk")]'
-
-# Get the last 24 hours of Agent Visibility "Tasks Completed" records (a MomentAnnotation)
-uv tool run fulcra-api get-records MomentAnnotation "24 hours" | jq '[.[] | select(.source_id == "com.fulcradynamics.annotation.agent_tasks_completed")]'
+# Get all "Netflix Export" records from the last month (a MomentAnnotation)
+uv tool run fulcra-api get-records MomentAnnotation "1 month" | jq '[.[] | select(.source_id == "<netflix_source_id_from_creation>")]'
 ```
 
 The output will be an array of JSON objects representing each recorded event, containing timestamps and the values associated with the schema (e.g., the numeric value, boolean state, or moment occurrence). You can pipe this output into further `jq` commands for filtering or processing before building the dashboard.
