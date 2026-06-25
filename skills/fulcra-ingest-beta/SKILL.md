@@ -34,14 +34,12 @@ This skill establishes a Librarian-Worker agent pattern to asynchronously proces
    - If new data files are found, use `delegate_task` to spin up a Worker subagent and pass the `file_id` and identified service as context.
 
 2. **The Worker (Profiling & Ingestion)**
-   - **Download:** Execute `uvx fulcra-api file download <file_id> ./<filename>`.
-   - **Profile Schema:** Read the first few lines/objects to determine the data shape. Pick the most appropriate Fulcra Annotation primitive (`DurationAnnotation`, `NumericAnnotation`, `MomentAnnotation`, etc.).
-   - **Source Map Lookup:** Download and read `ingest/_meta/source_map.md` (initialize if missing). Look up the detected source (e.g., `com.netflix`). If found, extract the mapped Annotation ID and verify the type matches. If not found, fall back to checking `uvx fulcra-api catalog`.
-   - **Schema Registration:** If no schema exists in the map or catalog, run `uvx fulcra-api data-type create <Primitive> "<Service Name> Export" -d "<namespace>"`. Save the resulting `fulcra_source_id`.
-   - **Data Ingestion:** Write and execute a Python script to iterate through the data. For each record, map the fields into the Fulcra schema payload. **Crucial:** Extract the specific fields defined in the Source Map's `Deterministic ID Fields` property, and pass the **detected source identifier (e.g., `com.netflix`)** followed by those specific field values to `scripts/generate_deterministic_id.py` (or import it) to generate the UUID. Including the source identifier prevents ID collisions across different services. Assign this UUID to the `metadata.id` field of the payload to prevent duplicates across multiple uploads.
-   - **Post Data:** Use `POST https://api.fulcradynamics.com/ingest/v1/record` with the user's auth token.
+   - **Retrieval:** Execute `uvx fulcra-api file download <file_id> ./<filename>`.
+   - **Source Mapping & Schema Resolution:** **Crucial:** You must strictly follow the agent workflow outlined in `references/fulcra-ingest-source-mapping.md`. Rely on the `source_map.md` registry to resolve the target schema ID. If you need to create a new schema for an unseen source, consult `references/fulcra-ingest-cli.md` for the correct CLI commands and base types.
+   - **Data Ingestion:** Write and execute a Python script to parse the file. 
+     - Generate deterministic UUIDs for `metadata.id` using `scripts/generate_deterministic_id.py` (ensure you pass the source identifier followed by the specific ID fields to prevent cross-service collisions).
+     - Construct the payload and push the records via POST to `/ingest/v1/record` exactly as specified in `references/fulcra-ingest-record-annotations.md`.
 
-3. **Cleanup**
-   - Once the worker completes, log the ingestion summary.
-   - Archive the file by moving it from the `ingest/` directory to the `ingest/_meta/archive/artifact/` directory in the Fulcra file store. **When archiving, prefix the filename with a timestamp in the format `YYYYMMDD-HHMMSS`** (e.g., `ingest/_meta/archive/artifact/20260625-143000_NetflixViewingHistory.csv`).
-   - **Update Source Map:** Update `source_map.md` with the new `archived_locations` path and annotation details, then upload it back to `ingest/_meta/source_map.md`.
+3. **Cleanup & Archive**
+   - Archive the processed file by moving it from the `ingest/` directory to `ingest/_meta/archive/artifact/`. **When archiving, prefix the filename with a timestamp in the format `YYYYMMDD-HHMMSS`** (e.g., `ingest/_meta/archive/artifact/20260625-143000_NetflixViewingHistory.csv`).
+   - Finalize the process by updating the `source_map.md` in memory and uploading it back to Fulcra, as instructed in the source mapping reference.
