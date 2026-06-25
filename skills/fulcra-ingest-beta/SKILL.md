@@ -25,6 +25,8 @@ This skill establishes a Librarian-Worker agent pattern to asynchronously proces
 
 - **`references/fulcra-ingest-source-mapping.md`**: Outlines the structure and workflow for maintaining the `ingest/_meta/source_map.md` file, which tracks data lineage, prevents duplicate schemas, and logs archived files.
 
+- **`scripts/generate_deterministic_id.py`**: A python script that takes arbitrary string arguments and returns a consistent, deterministic UUID. Use this to ensure idempotency across ingested records.
+
 ## The Pipeline
 
 1. **The Librarian (Triage)**
@@ -36,7 +38,7 @@ This skill establishes a Librarian-Worker agent pattern to asynchronously proces
    - **Profile Schema:** Read the first few lines/objects to determine the data shape. Pick the most appropriate Fulcra Annotation primitive (`DurationAnnotation`, `NumericAnnotation`, `MomentAnnotation`, etc.).
    - **Source Map Lookup:** Download and read `ingest/_meta/source_map.md` (initialize if missing). Look up the detected source (e.g., `com.netflix`). If found, extract the mapped Annotation ID and verify the type matches. If not found, fall back to checking `uvx fulcra-api catalog`.
    - **Schema Registration:** If no schema exists in the map or catalog, run `uvx fulcra-api data-type create <Primitive> "<Service Name> Export" -d "<namespace>"`. Save the resulting `fulcra_source_id`.
-   - **Data Ingestion:** Write and execute a Python script to iterate through the data. For each record, map the fields into the Fulcra schema payload. **Crucial:** Generate a deterministic UUID (e.g., based on an MD5 hash of the raw record) and assign it to the `metadata.id` field of the payload to prevent duplicates.
+   - **Data Ingestion:** Write and execute a Python script to iterate through the data. For each record, map the fields into the Fulcra schema payload. **Crucial:** Extract the specific fields defined in the Source Map's `Deterministic ID Fields` property, and pass them to `scripts/generate_deterministic_id.py` (or import it) to generate the UUID. Assign this UUID to the `metadata.id` field of the payload to prevent duplicates across multiple uploads.
    - **Post Data:** Use `POST https://api.fulcradynamics.com/ingest/v1/record` with the user's auth token.
 
 3. **Cleanup**

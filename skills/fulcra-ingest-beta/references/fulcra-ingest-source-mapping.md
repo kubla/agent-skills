@@ -21,6 +21,7 @@ The `source_map.md` file uses Markdown headings to separate detected sources. Un
 **Fulcra Source ID**: `com.fulcradynamics.annotation.12345678-abcd-efgh-ijkl-9876543210ab`
 **Type**: `MomentAnnotation`
 **Original Annotation Name**: `Netflix Export`
+**Deterministic ID Fields**: `["Title", "Date"]`
 
 ### Archived Locations
 - `ingest/_meta/archive/artifact/20260625-143000_NetflixViewingHistory.csv`
@@ -34,6 +35,7 @@ The `source_map.md` file uses Markdown headings to separate detected sources. Un
 **Fulcra Source ID**: `com.fulcradynamics.annotation.abcdef12-3456-7890-abcd-ef1234567890`
 **Type**: `DurationAnnotation`
 **Original Annotation Name**: `Spotify Export`
+**Deterministic ID Fields**: `["ts", "ms_played", "master_metadata_track_name"]`
 
 ### Archived Locations
 - `ingest/_meta/archive/artifact/20260510-091500_spotify_history.json`
@@ -68,7 +70,7 @@ Check if this source exists as a heading (`## com.netflix`) in the `source_map.m
 ### 3. Update & Upload
 After the records are successfully ingested and the raw file is moved to the archive:
 - Update the `source_map.md` in memory.
-  - If it was a new source, append a new `## <source>` section with the required properties and an empty Notes section.
+  - If it was a new source, append a new `## <source>` section with the required properties, including the `**Deterministic ID Fields**` (the specific columns/keys you used to calculate the UUIDs), and an empty Notes section.
   - Always append the new archive path as a list item under `### Archived Locations` for that source.
   - Add any helpful insights about the file format to the `### Notes` section.
 - Save the Markdown file locally and upload it back to Fulcra using `uvx fulcra-api file upload ./source_map.md ingest/_meta/source_map.md`, overwriting the previous version.
