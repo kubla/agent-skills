@@ -32,7 +32,7 @@ The most common base types for 3rd-party data ingestion are:
 *   `MomentAnnotation`: For tracking occurrences of an event without a specific duration (e.g., "Netflix Video Watched", "YouTube Video View").
 *   `NumericAnnotation`: For tracking a specific quantity or number (e.g., "Amazon Purchase Amount", "Apple Health Step Count").
 *   `BooleanAnnotation`: For tracking simple Yes/No or True/False states (e.g., "Habit Tracker Export").
-*   `ScaleAnnotation`: For bounded scales like 1-5 or 1-10 (e.g., "Letterboxd Movie Rating").
+*   `ScaleAnnotation`: For bounded scales like 1-5 (e.g., "Letterboxd Movie Rating").
 
 ### Creation Examples
 ```bash
