@@ -13,14 +13,14 @@ This skill establishes a Librarian-Worker agent pattern to asynchronously proces
 
 ## General Guidelines
 
-- **Zero User Friction:** Assume the user has dumped a raw ZIP/JSON/CSV into their Fulcra `inbox`. Do not ask them to map schemas manually unless absolutely necessary for a completely unrecognized format.
+- **Zero User Friction:** Assume the user has dumped a raw ZIP/JSON/CSV into their Fulcra `ingest`. Do not ask them to map schemas manually unless absolutely necessary for a completely unrecognized format.
 - **Idempotency:** Never create duplicate schemas. Always use the annotation's `description` field to store the specific namespace (e.g., `com.fulcradynamics.annotation.ingest.spotify`) and check the `catalog` first.
 - **Coordination:** Use `delegate_task` to dispatch specific files to a Worker subagent so the primary thread isn't blocked.
 
 ## The Pipeline
 
 1. **The Librarian (Triage)**
-   - Use `uvx fulcra-api file list` to check the `inbox` directory.
+   - Use `uvx fulcra-api file list` to check the `ingest` directory.
    - If new data files are found, use `delegate_task` to spin up a Worker subagent and pass the `file_id` and identified service as context.
 
 2. **The Worker (Profiling & Ingestion)**
