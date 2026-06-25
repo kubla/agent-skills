@@ -70,7 +70,7 @@ Check if this source exists as a heading (`## com.netflix`) in the `source_map.m
 ### 3. Update & Upload
 After the records are successfully ingested and the raw file is moved to the archive:
 - Update the `source_map.md` in memory.
-  - If it was a new source, append a new `## <source>` section with the required properties, including the `**Deterministic ID Fields**` (the specific columns/keys you used to calculate the UUIDs), and an empty Notes section.
+  - If it was a new source, append a new `## <source>` section with the required properties, including the `**Deterministic ID Fields**` (the specific columns/keys you used alongside the source identifier to calculate the UUIDs), and an empty Notes section.
   - Always append the new archive path as a list item under `### Archived Locations` for that source.
   - Add any helpful insights about the file format to the `### Notes` section.
 - Save the Markdown file locally and upload it back to Fulcra using `uvx fulcra-api file upload ./source_map.md ingest/_meta/source_map.md`, overwriting the previous version.
