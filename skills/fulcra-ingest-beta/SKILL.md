@@ -14,13 +14,14 @@ This skill establishes a Librarian-Worker agent pattern to asynchronously proces
 ## General Guidelines
 
 - **Zero User Friction:** Assume the user has dumped a raw ZIP/JSON/CSV into their Fulcra `ingest`. Do not ask them to map schemas manually unless absolutely necessary for a completely unrecognized format.
+- **File Filtering:** The Librarian must strictly ignore any Markdown files (e.g., `index.md`, `progress.md`) found in the `ingest` directory structure to preserve OKF metadata files and prevent attempting to ingest them as 3rd-party data exports.
 - **Idempotency:** Never create duplicate schemas. Always use the annotation's `description` field to store the specific namespace (e.g., `com.fulcradynamics.annotation.ingest.spotify`) and check the `catalog` first.
 - **Coordination:** Use `delegate_task` to dispatch specific files to a Worker subagent so the primary thread isn't blocked.
 
 ## The Pipeline
 
 1. **The Librarian (Triage)**
-   - Use `uvx fulcra-api file list` to check the `ingest` directory.
+   - Use `uvx fulcra-api file list` to check the `ingest/artifact/` directory. Explicitly ignore any `.md` files.
    - If new data files are found, use `delegate_task` to spin up a Worker subagent and pass the `file_id` and identified service as context.
 
 2. **The Worker (Profiling & Ingestion)**
@@ -33,4 +34,4 @@ This skill establishes a Librarian-Worker agent pattern to asynchronously proces
 
 3. **Cleanup**
    - Once the worker completes, log the ingestion summary.
-   - Archive the file by moving it from the `ingest` directory to the `archive` directory in the Fulcra file store. **When archiving, prefix the filename with a timestamp in the format `YYYYMMDD-HHMMSS`** (e.g., `archive/20260625-143000_NetflixViewingHistory.csv`) so it is easy to see exactly when it was processed, matching the memory skill conventions.
+   - Archive the file by moving it from the `ingest/artifact/` directory to the `archive/artifact/` directory in the Fulcra file store. **When archiving, prefix the filename with a timestamp in the format `YYYYMMDD-HHMMSS`** (e.g., `archive/artifact/20260625-143000_NetflixViewingHistory.csv`) so it is easy to see exactly when it was processed, adhering to the OKF binary/asset conventions.
