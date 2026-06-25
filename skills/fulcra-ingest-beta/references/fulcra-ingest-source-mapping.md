@@ -20,7 +20,7 @@ The `source_map.md` file uses Markdown headings to separate detected sources. Un
 **Annotation ID**: `12345678-abcd-efgh-ijkl-9876543210ab`
 **Fulcra Source ID**: `com.fulcradynamics.annotation.12345678-abcd-efgh-ijkl-9876543210ab`
 **Type**: `MomentAnnotation`
-**Original Name**: `Netflix Export`
+**Original Annotation Name**: `Netflix Export`
 
 ### Archived Locations
 - `ingest/_meta/archive/artifact/20260625-143000_NetflixViewingHistory.csv`
@@ -33,7 +33,7 @@ The `source_map.md` file uses Markdown headings to separate detected sources. Un
 **Annotation ID**: `abcdef12-3456-7890-abcd-ef1234567890`
 **Fulcra Source ID**: `com.fulcradynamics.annotation.abcdef12-3456-7890-abcd-ef1234567890`
 **Type**: `DurationAnnotation`
-**Original Name**: `Spotify Export`
+**Original Annotation Name**: `Spotify Export`
 
 ### Archived Locations
 - `ingest/_meta/archive/artifact/20260510-091500_spotify_history.json`
