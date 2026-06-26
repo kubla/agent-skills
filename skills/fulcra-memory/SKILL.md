@@ -18,7 +18,7 @@ By periodically logging activities to `progress.md` and keeping the memory names
 ## Primary Role: Progress & OKF Compliance
 
 ### 1. The Memory Namespace (OKF Compliant)
-For core memory tracking, agents use the standardized prefix: `agent/<lowercase-agent-name>/memory/`.
+For core memory tracking, agents use the standardized prefix: `agent/<lowercase-agent-name>/`.
 This dedicated directory tracks the agent's state. It must conform to the Open Knowledge Format (OKF), meaning it contains an `index.md`, a `log.md`, and markdown concept files like `progress.md`.
 
 **IMPORTANT OKF EFFICIENCY DIRECTIVE:** While OKF compliance is mandatory, it must not become cumbersome.
@@ -28,7 +28,7 @@ This dedicated directory tracks the agent's state. It must conform to the Open K
 
 ### 2. Progress Reports
 Agents should run a progress sync periodically (e.g., triggered by `HEARTBEAT.md`). Every time an agent syncs its state:
-1. It writes a concise `progress.md` report locally—summarizing the work it has recently done, and what it is planning to do next—and uploads it directly to `agent/<agent-name>/memory/progress.md`. The `progress.md` file must include proper OKF YAML frontmatter (with `type: Progress Report`). This file is a report specifically designed to let the user review the agent's recent accomplishments and intended next steps. It is **not** intended to dump internal agent state, chain-of-thought, or precise working memory.
+1. It writes a concise `progress.md` report locally—summarizing the work it has recently done, and what it is planning to do next—and uploads it directly to `agent/<agent-name>/progress.md`. The `progress.md` file must include proper OKF YAML frontmatter (with `type: Progress Report`). This file is a report specifically designed to let the user review the agent's recent accomplishments and intended next steps. It is **not** intended to dump internal agent state, chain-of-thought, or precise working memory.
 2. It updates the `log.md` (Update History) and ensures the `index.md` directory listing is accurate.
 
 **PRIVACY REQUIREMENT:** Before uploading `progress.md`, the agent MUST ensure it is not inadvertently uploading new sensitive personal user data, credentials, or private internal reasoning. Minimize disclosures in `progress.md`.
@@ -39,7 +39,7 @@ The `session/` subdirectory is used to record high-level summaries of what was a
 - Session files MUST be prefixed with a timestamp in the format `YYYYMMDD-HHMMSS` followed by an underscore and a short subject (e.g., `YYYYMMDD-HHMMSS_setup-dashboard.md`).
 - These files serve as targeted, easily-retrievable context. They should capture decisions made, important links, user preferences discovered, and the final state of the session.
 - Ensure the `session/` directory is listed in the top-level `index.md` with a high-level description. You do not need to index every individual session file in `index.md`.
-- Upload these session files directly to `agent/<agent-name>/memory/session/<filename>.md`.
+- Upload these session files directly to `agent/<agent-name>/session/<filename>.md`.
 
 ### 4. Long-Running Tasks
 The `task/` subdirectory is dedicated to longer-running tasks that span multiple sessions or interactions.
