@@ -82,7 +82,25 @@ Ensure `memory/task/index.md` is updated to include a link to the new or active 
 **Step C: Upload to Fulcra**
 Upload both the task file and the task index.
 
-```bash
 uv tool run fulcra-api file upload memory/task/setup-dashboard.md "agent/<agent_name>/task/setup-dashboard.md"
 uv tool run fulcra-api file upload memory/task/index.md "agent/<agent_name>/task/index.md"
+```
+
+## 4. Personal Inbox Lifecycle
+
+Agents can receive files in their personal inbox (`inbox/`) from users or external triggers. Users can drop files here manually without needing strict timestamp formats.
+
+**Step A: Process and Archive**
+Read the file from the inbox. Once processed, you must upload it to the `archive/` directory. If the original file name doesn't start with a timestamp, you **must prepend one** (`YYYYMMDD-HHMMSS_`).
+
+```bash
+# Example for a file originally named "todo.md"
+uv tool run fulcra-api file upload memory/archive/20260624-153000_todo.md "agent/<agent_name>/archive/20260624-153000_todo.md"
+```
+
+**Step B: Delete from Inbox**
+Once safely archived, delete the original file from the inbox.
+
+```bash
+uv tool run fulcra-api file delete "agent/<agent_name>/inbox/todo.md"
 ```
