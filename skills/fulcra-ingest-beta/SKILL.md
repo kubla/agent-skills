@@ -29,6 +29,12 @@ This skill establishes a Librarian-Worker agent pattern to asynchronously proces
 
 ## The Pipeline
 
+0. **The Fetcher (API/CLI Extraction)** *(If applicable)*
+   - If the user requests to ingest data from an API, CLI tool, or local service (e.g., GitHub, browser history) rather than pointing to a pre-uploaded file, first fetch the data programmatically.
+   - Save the fetched data to a structured file (e.g., CSV or JSON) in the local workspace.
+   - Upload the file to the Fulcra File Store drop-zone using `uvx fulcra-api file upload <local_file> ingest/<filename>`.
+   - Once uploaded, proceed with the standard Librarian triage process below.
+
 1. **The Librarian (Triage)**
    - Use `uvx fulcra-api file list` to check the `ingest/` directory. Explicitly ignore the `_meta/` folder and any `.md` files.
    - If new data files are found, use `delegate_task` to spin up a Worker subagent and pass the `file_id` and identified service as context.
