@@ -48,9 +48,9 @@ Upload the files using the standardized agent path convention. Determine the age
 
 ```bash
 # Replace <agent_name> with the agent's actual name (e.g., treecle, wazir) in lowercase
-uv tool run fulcra-api file upload memory/progress.md "agent/<agent_name>/memory/progress.md"
-uv tool run fulcra-api file upload memory/log.md "agent/<agent_name>/memory/log.md"
-uv tool run fulcra-api file upload memory/index.md "agent/<agent_name>/memory/index.md"
+uv tool run fulcra-api file upload memory/progress.md "agent/<agent_name>/progress.md"
+uv tool run fulcra-api file upload memory/log.md "agent/<agent_name>/log.md"
+uv tool run fulcra-api file upload memory/index.md "agent/<agent_name>/index.md"
 ```
 
 ## 2. Saving Session Summaries
@@ -65,7 +65,7 @@ Generate a concise markdown file capturing the session's context, decisions, and
 Upload the file to the `session/` namespace using the agent's name.
 
 ```bash
-uv tool run fulcra-api file upload memory/session/20260623-180530_setup-dashboard.md "agent/<agent_name>/memory/session/20260623-180530_setup-dashboard.md"
+uv tool run fulcra-api file upload memory/session/20260623-180530_setup-dashboard.md "agent/<agent_name>/session/20260623-180530_setup-dashboard.md"
 ```
 
 ## 3. Managing Long-Running Tasks
@@ -83,6 +83,6 @@ Ensure `memory/task/index.md` is updated to include a link to the new or active 
 Upload both the task file and the task index.
 
 ```bash
-uv tool run fulcra-api file upload memory/task/setup-dashboard.md "agent/<agent_name>/memory/task/setup-dashboard.md"
-uv tool run fulcra-api file upload memory/task/index.md "agent/<agent_name>/memory/task/index.md"
+uv tool run fulcra-api file upload memory/task/setup-dashboard.md "agent/<agent_name>/task/setup-dashboard.md"
+uv tool run fulcra-api file upload memory/task/index.md "agent/<agent_name>/task/index.md"
 ```
