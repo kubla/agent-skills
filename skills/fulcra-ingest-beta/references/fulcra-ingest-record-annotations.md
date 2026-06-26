@@ -36,7 +36,7 @@ curl -i -X POST \
 2. **`metadata.source`**: Must be an array representing the lineage of the data (the "source chain"), ordered from origin to destination. The chain should be: 1) The original 3rd-party service identifier (e.g., `"com.netflix"`), 2) The file path in the Fulcra file store (e.g., `"com.fulcradynamics.file./ingest/NetflixViewingHistory.csv"`), 3) Your own agent identifier (e.g., `"agent.hermes"`), and finally 4) The annotation's specific schema identifier (`"com.fulcradynamics.annotation.<ANNOTATION_ID>"`).
 3. **`metadata.data_type`**: Must match the annotation type in CamelCase (e.g., `ScaleAnnotation`, `MomentAnnotation`, `NumericAnnotation`, etc.).
 4. **`metadata.recorded_at`**: Must be a valid ISO 8601 timestamp in UTC (e.g., `2026-05-22T20:15:57Z`).
-5. **`metadata.tags`**: Add string tags to records for categorization, filtering, and cross-source aggregation. Think of tags like keywords (e.g., `"work"`, `"entertainment"`, `"travel"`, `"media"`). When ingesting data, you should map properties of the incoming data to relevant tags where possible.
+5. **`metadata.tags`**: Add string tags to records for categorization, filtering, and cross-source aggregation. Think of tags like keywords, but be creative and use the most useful tags for the data source! For example, for Netflix, you could tag by genre (if available) or even by the show title. This allows the user to quickly scan the categorical breakdown of the data. To ensure tags are applied consistently across future ingestions of the same source, the specific tagging method must be documented in the `source_map.md`.
 6. **`data`**: Must be a **stringified JSON string** containing the `value` (if the annotation type requires one) and an optional `note`.
 
 ### Examples
