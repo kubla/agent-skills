@@ -57,6 +57,14 @@ The `knowledge/` subdirectory is an open-ended convention for agents to store, o
 - Ensure the `knowledge/` directory is listed in the top-level `index.md` so that the user and other agents know it exists.
 - This convention empowers agents to build a rich, personalized context over time without being artificially limited by standard tracking conventions.
 
+### 6. Personal Inbox
+
+The `inbox/` subdirectory (`agent/<agent-name>/inbox/`) is used for asynchronous communication directed specifically to the agent (from users or other automated, non-team sources). 
+- To make it easy for users to manually drop files into the inbox, files placed here DO NOT need to adhere to a strict timestamp or subject naming convention (e.g., a user might just drop a file named `todo.md`).
+- When the agent reads an inbox message and decides to archive it, it moves the file to the `archive/` directory. 
+- If the original file name does not already start with a timestamp, the agent MUST prepend a timestamp (`YYYYMMDD-HHMMSS_`) to the filename when saving it to `archive/` (e.g., archiving `todo.md` becomes `archive/20260624-153000_todo.md`). This ensures the archive remains chronologically sortable even for manually dropped files.
+- Remember, as per the OKF Efficiency Directive, you do not need to log every individual inbox or archive file in `index.md`.
+
 ## Workflow
 
 To perform memory tracking operations, agents must interact with the Fulcra CLI. 
