@@ -19,7 +19,19 @@ When creating the link, you define where the incoming data should be stored in t
 uv tool run fulcra-api magic-link create "ingest/github_webhooks/latest_payload.json"
 ```
 
-The output will provide a unique URL (e.g., `https://api.fulcradynamics.com/magic/v1/hook/1234abcd...`).
+The output will provide a unique URL.
+
+## Magic Link URL Structure & Parameters
+
+For direct data ingestion, Fulcra magic links have the following form:
+`https://fulcra.io/e/<LINK ID>?value=<VALUE>&note=<NOTE>&tag=<TAG 1 UUID>&tag=<TAG 2 UUID>`
+
+Notice how the magic link query parameters relate directly to the annotation recording data and metadata:
+- `value`: Maps to the `data.value` field in the recorded annotation.
+- `note`: Maps to the `data.note` field.
+- `tag`: Maps to the `metadata.tags` array. You can include multiple `tag` parameters by passing the specific tag UUIDs.
+
+*(Note: Exact CLI instructions for generating these parameterized links and retrieving the `<LINK ID>` will be provided in a future update. For now, ensure you understand how the URL parameters map to the underlying annotation schema.)*
 
 ## Configuring the External Source
 Once you have the URL, provide it to the user or configure the 3rd-party service to send POST requests to it.
