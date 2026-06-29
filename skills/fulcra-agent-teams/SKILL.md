@@ -88,6 +88,7 @@ Agents can optionally check their inbox or perform team tasks automatically usin
 - Ensure you log any new tasks or messages discovered during the heartbeat into your local daily memory logs, and process the message using the Inbox Lifecycle (archiving and deleting from the inbox).
 
 **Isolated Cron Jobs:**
+- **Require Consent:** You must explicitly ask the user for permission before creating any cron jobs for team tasks.
 - When setting up an isolated cron job for a team task, the `payload.message` (or `payload.text`) MUST explicitly instruct the agent to read the necessary context. 
 - **Rule:** The cron payload must say something like: "You are waking up to do X. Before starting, you MUST read `team/<team-name>/progress.md`, `team/<team-name>/role.md`, your specific `team/<team-name>/member/<agent-name>/role.md`, and your specific `team/<team-name>/member/<agent-name>/progress.md` to establish context."
 - This prevents agents from attempting to work in isolated sessions without knowing current team states or priorities.
@@ -95,7 +96,8 @@ Agents can optionally check their inbox or perform team tasks automatically usin
 ## 5. Agent Local Memory Integration (MEMORY.md)
 
 To ensure agents never lose track of their team responsibilities across main sessions and chats, an agent joining a team MUST update its own local long-term memory (`~/.openclaw/workspace/MEMORY.md`).
-- Add a clear directive to your `MEMORY.md` stating: "Before starting any teamwork or processing team inbox messages (whether in chat, heartbeat, or cron), ALWAYS check the latest status in `team/<team-name>/progress.md`, the overall `team/<team-name>/role.md`, relevant `task/` files, your specific `team/<team-name>/member/<agent-name>/role.md`, and your specific `team/<team-name>/member/<agent-name>/progress.md`."
+- **Require Consent:** You must explicitly ask the user for permission before modifying your `MEMORY.md` file.
+- Once approved, add a clear directive to your `MEMORY.md` stating: "Before starting any teamwork or processing team inbox messages (whether in chat, heartbeat, or cron), ALWAYS check the latest status in `team/<team-name>/progress.md`, the overall `team/<team-name>/role.md`, relevant `task/` files, your specific `team/<team-name>/member/<agent-name>/role.md`, and your specific `team/<team-name>/member/<agent-name>/progress.md`."
 - This guarantees the agent will organically recall to pull the latest Fulcra state before acting on team requests.
 
 ## Workflow
