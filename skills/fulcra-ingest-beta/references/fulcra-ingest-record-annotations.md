@@ -35,21 +35,24 @@ curl -i -X POST \
 1. **`metadata.id`**: Must be a deterministic UUID generated from the raw row data to ensure idempotency and prevent duplicate records.
 2. **`metadata.source`**: Must be an array representing the lineage of the data (the "source chain"), ordered from origin to destination. The chain should be: 1) The original 3rd-party service identifier (e.g., `"com.netflix"`), 2) The file path in the Fulcra file store (e.g., `"com.fulcradynamics.file./ingest/NetflixViewingHistory.csv"`), 3) Your own agent identifier (e.g., `"agent.hermes"`), and finally 4) The annotation's specific schema identifier (`"com.fulcradynamics.annotation.<ANNOTATION_ID>"`).
 3. **`metadata.data_type`**: Must match the annotation type in CamelCase (e.g., `ScaleAnnotation`, `MomentAnnotation`, `NumericAnnotation`, etc.).
-4. **`metadata.recorded_at`**: Must be a valid ISO 8601 timestamp in UTC (e.g., `2026-05-22T20:15:57Z`).
+4. **`metadata.recorded_at`**: For moment-based annotations (events happening at a specific time) and metrics, this must be a valid ISO 8601 timestamp in UTC string (e.g., `"2026-05-22T20:15:57Z"`). For duration-based annotations (like `DurationAnnotation`), this must be an object containing `"start_time"` and `"end_time"` (e.g., `{"start_time": "2026-06-29T18:53:42Z", "end_time": "2026-06-29T18:53:47Z"}`).
 5. **`metadata.tags`**: Add string tags to records to distinguish data *within* the annotation. Do not use broad source-category tags (like "entertainment" or "shopping") because the annotation itself already provides that high-level grouping. Instead, be creative and use the most useful tags for the specific data source! For example, for Netflix, you could tag by genre or by the base show title. For Amazon, tag by the item's product category (e.g., "Electronics", "Books"). This allows the user to quickly scan the categorical breakdown of the data within that specific schema. To ensure tags are applied consistently across future ingestions of the same source, the specific tagging method must be documented in the `source_map.md`.
-6. **`data`**: Must be a **stringified JSON string** containing the `value` (if the annotation type requires one) and an optional `note`.
+6. **`data`**: Must be a **stringified JSON string**. If the annotation is a **Metric** (like Numeric, Scale, or Boolean), it must contain a `"value"`. If the annotation is an **Event** (like Moment or Duration), it has no value, so this should just be an empty object `"{}"` or optionally contain a `"note"` (e.g., `"{\"note\":\"My custom note\"}"`).
 
 ### Examples
 
 #### 1. Duration Annotation (Spotify Stream)
-Used for logging an event that has a length of time. The `value` often represents the duration in seconds.
+Used for logging an event that has a length of time. Because it is an event, it does not have a `value`.
 ```json
 {
   "metadata": {
     "id": "a1b2c3d4-e5f6-7a8b-9c0d-1e2f3a4b5c6d",
     "data_type": "DurationAnnotation",
     "tags": ["The Beatles", "Rock"],
-    "recorded_at": "2023-10-25T18:32:00Z",
+    "recorded_at": {
+      "start_time": "2023-10-25T18:25:00Z",
+      "end_time": "2023-10-25T18:32:00Z"
+    },
     "content_type": "application/json",
     "source": [
       "com.spotify",
@@ -58,7 +61,7 @@ Used for logging an event that has a length of time. The `value` often represent
       "com.fulcradynamics.annotation.<SPOTIFY_ANNOTATION_ID>"
     ]
   },
-  "data": "{\"note\":\"Hey Jude by The Beatles\",\"value\":431}"
+  "data": "{\"note\":\"Hey Jude by The Beatles\"}"
 }
 ```
 
