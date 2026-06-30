@@ -17,7 +17,7 @@ This skill establishes a Librarian-Worker agent pattern to asynchronously proces
 - **Proactive Automation:** Proactively ask the user if they would like to set up a cron job, a continuous loop, or a heartbeat reminder (depending on what is appropriate for the running agent) to periodically check the `ingest/` directory for new files or to automatically fetch data from APIs and other sources it can pull directly.
 - **File Filtering:** The Librarian must strictly ignore the `_meta/` subdirectory and any `.md` files found in the `ingest` root to prevent attempting to ingest the agent's own OKF tracking files.
 - **Idempotency:** Never create duplicate schemas. Always use the annotation's `description` field to store the specific namespace (e.g., `com.fulcradynamics.annotation.ingest.spotify`) and check the `catalog` first.
-- **Data Correction:** If the user requests to correct ingested data (e.g., they want to change the tagging scheme), you must delete the old records via `DeletedRecord` payloads, increment the `Ingest Version` in the source map, and re-ingest the data. See the references for instructions.
+- **Data Correction:** If the user requests to correct ingested data (e.g., they want to change the tagging scheme), you must delete the old records via `DeletedRecord` payloads, increment the `Ingest Version` in the source map, and re-ingest the data. You can re-import the previously archived file from `ingest/_meta/archive/artifact/` to process the new tags. See the references for instructions.
 - **Coordination:** Use `delegate_task` to dispatch specific files to a Worker subagent so the primary thread isn't blocked.
 
 
@@ -50,3 +50,4 @@ This skill establishes a Librarian-Worker agent pattern to asynchronously proces
 3. **Cleanup & Archive**
    - Archive the processed file by moving it from the `ingest/` directory to `ingest/_meta/archive/artifact/`. **When archiving, prefix the filename with a timestamp in the format `YYYYMMDD-HHMMSS`** (e.g., `ingest/_meta/archive/artifact/20260625-143000_NetflixViewingHistory.csv`).
    - Finalize the process by updating the `source_map.md` in memory and uploading it back to Fulcra, as instructed in the source mapping reference.
+   - **User Handoff:** Remind the user that if they ever want to change the tagging scheme or fix a mistake, they can simply ask you to correct the data and you will automatically handle the deletion and re-ingestion.
