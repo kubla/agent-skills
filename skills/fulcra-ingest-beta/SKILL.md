@@ -24,7 +24,6 @@ This skill establishes a Librarian-Worker agent pattern to asynchronously proces
 - **`references/fulcra-ingest-cli.md`**: Contains the necessary `fulcra-api` CLI commands for checking the catalog, listing files, and creating new data types.
 - **`references/fulcra-ingest-record-annotations.md`**: Provides the exact POST endpoint, authentication headers, JSON schemas, and **tagging instructions** required for ingesting records to Fulcra Annotations.
 - **`references/fulcra-ingest-source-mapping.md`**: Outlines the structure and workflow for maintaining the `ingest/_meta/source_map.md` file, which tracks data lineage, prevents duplicate schemas, and logs archived files.
-- **`references/fulcra-ingest-magic-links.md`**: Contains instructions and examples for generating and configuring "magic links" (webhooks) for data sources that can push data directly, removing the need for local cron polling.
 - **`scripts/generate_deterministic_id.py`**: A python script that takes arbitrary string arguments and returns a consistent, deterministic UUID. Use this to ensure idempotency across ingested records.
 
 ## The Pipeline
