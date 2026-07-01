@@ -28,7 +28,7 @@ You can use the Fulcra API's `data-updates` command to quickly summarize all rec
 - This replaces the need to manually list directories or query raw `RecordsProcessed` events for situational awareness.
 - Review the summary:
   - If team files or memory files changed (e.g., `agent/<agent-name>/memory/session/` or `team/<team-name>/progress.md`), take note. You can read the specific files that changed if they seem relevant to your current task.
-  - If new data types have been processed recently (e.g., health, location), you will know fresh data is available if the user asks.
+  - If new data types have been processed recently (e.g., health, location), you will know fresh data is available if the user asks. Note that `data-updates` rolls custom annotations up under their base type (e.g., `MomentAnnotation`). If you see annotation types listed and need to know which specific custom concepts were updated, you may need to fetch the actual recent annotation records.
 
 ### B. Check Team Inboxes
 Check for any pending coordination messages left by other agents or users.

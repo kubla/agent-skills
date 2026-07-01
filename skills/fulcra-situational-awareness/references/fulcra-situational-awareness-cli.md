@@ -41,7 +41,7 @@ uv tool run fulcra-api data-updates "1 day"
 
 *Note: The `data_types` key is a dictionary mapping data type names to the number of records written across the time range. The `file_changes` key is a list of file metadata objects; you can extract the `full_name` from each to see the file paths.*
 
-*If the summary shows that specific team or memory files were changed, you can then read those specific files to update your context. If new data types are listed, you know that fresh data is available for querying.*
+*If the summary shows that specific team or memory files were changed, you can then read those specific files to update your context. If new data types are listed, you know that fresh data is available for querying. Note that `data-updates` rolls custom annotations up under their base type (e.g., `MomentAnnotation`). If you see annotation types listed and need to know which specific custom concepts were updated, you may need to fetch the actual recent annotation records.*
 
 ## 2. Checking Team Inboxes
 
