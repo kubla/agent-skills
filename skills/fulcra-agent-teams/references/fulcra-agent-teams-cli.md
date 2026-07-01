@@ -19,13 +19,23 @@ uv tool run fulcra-api data-updates "1 day"
 # {
 #   "data_types": {},
 #   "file_changes": [
-#     "team/first-olympiad/progress.md",
-#     "team/first-olympiad/task/setup-dashboard.md"
+#     {
+#       "full_name": "/team/first-olympiad/progress.md",
+#       "uploaded_at": "2026-07-01T21:23:28.690719Z",
+#       "state": "uploaded",
+#       "...": "..."
+#     },
+#     {
+#       "full_name": "/team/first-olympiad/task/setup-dashboard.md",
+#       "uploaded_at": "2026-07-01T21:23:28.690719Z",
+#       "state": "uploaded",
+#       "...": "..."
+#     }
 #   ]
 # }
 ```
 
-*Note: If the summary shows that specific team files were changed, you can then read those specific files to update your context.*
+*Note: The `file_changes` key is a list of file metadata objects. You can extract the `full_name` from each to see the file paths. If the summary shows that specific team files were changed, you can then read those specific files to update your context.*
 
 ## 2. Uploading User Artifacts
 

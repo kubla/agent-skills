@@ -23,13 +23,25 @@ uv tool run fulcra-api data-updates "1 day"
 #     "StepCount": 121
 #   },
 #   "file_changes": [
-#     "agent/wazir/memory/session/20260701-120000_update.md",
-#     "team/first-olympiad/progress.md"
+#     {
+#       "full_name": "/agent/wazir/memory/session/20260701-120000_update.md",
+#       "uploaded_at": "2026-07-01T21:23:28.690719Z",
+#       "state": "uploaded",
+#       "...": "..."
+#     },
+#     {
+#       "full_name": "/team/first-olympiad/progress.md",
+#       "uploaded_at": "2026-07-01T21:23:28.690719Z",
+#       "state": "uploaded",
+#       "...": "..."
+#     }
 #   ]
 # }
 ```
 
-*Note: If the summary shows that specific team or memory files were changed, you can then read those specific files to update your context. If new data types are listed, you know that fresh data is available for querying.*
+*Note: The `data_types` key is a dictionary mapping data type names to the number of records written across the time range. The `file_changes` key is a list of file metadata objects; you can extract the `full_name` from each to see the file paths.*
+
+*If the summary shows that specific team or memory files were changed, you can then read those specific files to update your context. If new data types are listed, you know that fresh data is available for querying.*
 
 ## 2. Checking Team Inboxes
 

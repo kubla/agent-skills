@@ -19,13 +19,23 @@ uv tool run fulcra-api data-updates "1 day"
 # {
 #   "data_types": {},
 #   "file_changes": [
-#     "agent/treecle/memory/knowledge/programming/python.md",
-#     "agent/treecle/memory/session/20260701-120000_setup.md"
+#     {
+#       "full_name": "/agent/treecle/memory/knowledge/programming/python.md",
+#       "uploaded_at": "2026-07-01T21:23:28.690719Z",
+#       "state": "uploaded",
+#       "...": "..."
+#     },
+#     {
+#       "full_name": "/agent/treecle/memory/session/20260701-120000_setup.md",
+#       "uploaded_at": "2026-07-01T21:23:28.690719Z",
+#       "state": "uploaded",
+#       "...": "..."
+#     }
 #   ]
 # }
 ```
 
-*Note: If the summary shows that specific memory files were changed, you can then read those specific files to update your context.*
+*Note: The `file_changes` key is a list of file metadata objects. You can extract the `full_name` from each to see the file paths. If the summary shows that specific memory files were changed, you can then read those specific files to update your context.*
 
 ## 2. Syncing Progress and OKF Files
 
