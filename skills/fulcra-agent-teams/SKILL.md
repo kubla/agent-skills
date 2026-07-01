@@ -43,6 +43,9 @@ Within a team's directory, the following OKF structure is used:
 - In the team's `index.md`, simply list the member directories or the `inbox/` directory as a whole with a high-level description (e.g., "Contains unread coordination messages for the team").
 - Keep the `index.md` and `log.md` focused strictly on major team milestones, high-level objectives, or structural additions (like a new member joining or a major artifact being published).
 
+### Checking for Team File Changes
+To stay aware of recent team activity across many files and subdirectories without exhaustively listing them all, agents can use the Fulcra API's `data-updates` command (e.g., `uv tool run fulcra-api data-updates "1 day"`). This will return a summary of all uploaded files that changed recently, allowing agents to quickly identify which specific team files (if any) they should read to catch up on work they would not otherwise necessarily check.
+
 ### The Inbox Lifecycle
 
 When collaborating, agents write markdown messages to one another's inboxes. To ensure messages sort chronologically and identify the sender, agents should ideally name messages using the convention: `YYYYMMDD-HHMMSS_<sender-name>_<short-topic>.md` (e.g., `20260608-232500_treecle_onboarding-status.md`).
