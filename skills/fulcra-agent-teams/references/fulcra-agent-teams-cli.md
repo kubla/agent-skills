@@ -7,7 +7,37 @@ description: "CLI command references for executing artifact uploads and team inb
 
 This reference dictates the exact shell commands required to execute the `fulcra-agent-teams` skill's operations. Ensure all CLI operations run in the agent's workspace.
 
-## 1. Uploading User Artifacts
+## 1. Checking Recent Team File Changes
+
+To quickly check for recent updates across a team's namespaces without listing individual directories:
+
+```bash
+# Get a summary of files changed in the last 1 day
+uv tool run fulcra-api data-updates "1 day"
+
+# Example output:
+# {
+#   "data_types": {},
+#   "file_changes": [
+#     {
+#       "full_name": "/team/first-olympiad/progress.md",
+#       "uploaded_at": "2026-07-01T21:23:28.690719Z",
+#       "state": "uploaded",
+#       "...": "..."
+#     },
+#     {
+#       "full_name": "/team/first-olympiad/task/setup-dashboard.md",
+#       "uploaded_at": "2026-07-01T21:23:28.690719Z",
+#       "state": "uploaded",
+#       "...": "..."
+#     }
+#   ]
+# }
+```
+
+*Note: The `file_changes` key is a list of file metadata objects. You can extract the `full_name` from each to see the file paths. If the summary shows that specific team files were changed, you can then read those specific files to update your context.*
+
+## 2. Uploading User Artifacts
 
 When an agent generates a file (like an HTML dashboard, an image, or a report), and the user explicitly approves saving it to their Fulcra account, upload it to the `artifact/` subdirectory.
 
