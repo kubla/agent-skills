@@ -57,16 +57,16 @@ Data is deleted by sending a `POST` request to the Fulcra Ingest API using the `
       "agent.hermes"
     ]
   },
-  "data": "{\"deleted_id\":\"<UUID_OF_RECORD_TO_DELETE>\",\"deleted_type\":\"<BASE_DATA_TYPE>\"}"
+  "data": "{\"record_id\":\"<UUID_OF_RECORD_TO_DELETE>\",\"data_type\":\"<BASE_DATA_TYPE>\"}"
 }
 ```
 
 **Deletion Rules:**
-1.  **`deleted_id`**: The exact UUID of the record you want to delete.
-2.  **`deleted_type`**: The base type of the record being deleted (e.g., `"MomentAnnotation"`, `"DurationAnnotation"`, `"NumericAnnotation"`). **Crucially:** Do NOT include the specific schema ID here. It must just be the base type.
+1.  **`record_id`**: The exact UUID of the record you want to delete.
+2.  **`data_type`**: The base type of the record being deleted (e.g., `"MomentAnnotation"`, `"DurationAnnotation"`, `"NumericAnnotation"`). **Crucially:** Do NOT include the specific schema ID here. It must just be the base type.
 3.  **`metadata.id`**: Every deletion request is itself a record and needs its own unique `metadata.id`.
 
-*(Note: After deleting records, if you are re-ingesting the data to correct it, you MUST generate new deterministic UUIDs for the replacement records by incrementing the `Ingest Version` in the `source_map.md` and including it in your hashing function. See the source mapping reference for details.)*
+*(Note: Because the Fulcra API now allows ID reuse after deletion, you can re-ingest the data using the original deterministic UUIDs. You do not need to increment an Ingest Version or modify your hashing function.)*
 
 ### Examples
 
