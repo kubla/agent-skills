@@ -58,11 +58,10 @@ Or clone the repo and copy the skill folders you want into your agent's skills d
 
 Once you're connected, your agent will recommend a golden path — import a data source, set up situational awareness, and create an agent team — then offer a menu of more directions:
 
-1. Set up custom data tracking and a personal dashboard
-2. Back up your agent's memory to Fulcra
-3. Connect multiple agents so they can coordinate work
-4. Download the Fulcra Context iOS app
-5. Explore your data on the Context Web portal
+1. Set up agent visibility, custom data tracking, and a personal dashboard
+2. Record agent memory, knowledge, tasks, and progress in Fulcra
+3. Download the Fulcra Context iOS app
+4. Explore your data on the Context Web portal
 
 **Contains:** `SKILL.md`, `references/` (CLI docs, auth steps, prerequisites)
 
