@@ -54,7 +54,8 @@ Data is deleted by sending a `POST` request to the Fulcra Ingest API using the `
 curl -i -X POST \
   -H "Authorization: Bearer $(uv tool run fulcra-api auth print-access-token)" \
   -H "Content-Type: application/x-jsonl" \
-  -d '{"record_id": "<UUID_OF_RECORD_TO_DELETE>", "data_type": "<BASE_DATA_TYPE>"}' \
+  -d '{"record_id": "<UUID_OF_RECORD_1_TO_DELETE>", "data_type": "<BASE_DATA_TYPE>"}
+{"record_id": "<UUID_OF_RECORD_2_TO_DELETE>", "data_type": "<BASE_DATA_TYPE>"}' \
   "https://api.fulcradynamics.com/ingest/v1/record/DeletedRecord?api_version=v1alpha1"
 ```
 
