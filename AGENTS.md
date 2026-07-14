@@ -4,9 +4,7 @@ This file applies to the entire repository. For requests that use Fulcra capabil
 
 ## About Fulcra
 
-[Context by Fulcra](https://fulcradynamics.com/) is a personal data and memory platform. It gives a person one place to collect and store real-world data about their life — health metrics from wearables and medical devices, location, calendars, workouts, sleep, and hundreds of other sources — plus free-form data they define themselves, such as mood, habits, or progress toward a goal. Data is primarily collected through the [Context by Fulcra iOS app](https://apps.apple.com/us/app/context-by-fulcra-health-hub/id1633037434), which syncs from the person's phone to their account, and users can explore it interactively in the mobile app or on the [Context web portal](https://context.fulcradynamics.com/).
-
-The same account is also a datastore for agents: agents can query the user's timeline, record new data on their behalf, and use versioned file storage for memory, artifacts, and coordination. The skills in this repository are workflows built on that foundation.
+[Fulcra](https://fulcradynamics.com/) is a personal data and memory platform. It gives a person and all of their MCP clients and agents one place to collect and store real-world data. This data can be free-form data types or versioned files to track things like agent synchronization status, contacts, work artifacts, and objects too large to fit inside an LLM's context.  Some users track personal data like mood, habits, or progress toward a goal. Other personal data like location, calendars, workouts, and wearable health information can be collected by the user with the optional [Context iOS app](https://apps.apple.com/us/app/context-by-fulcra-health-hub/id1633037434), which syncs from the person's phone to their account. Users can explore their data interactively in the mobile app or on the [Context web portal](https://context.fulcradynamics.com/).
 
 Programmatic access comes in three forms:
 
@@ -32,7 +30,7 @@ If no specialized skill fits, use `fulcra-primitives` to work directly with Fulc
 |---|---|
 | Connect or authenticate for the first time | `skills/fulcra-onboarding/` |
 | Learn the data model or perform general CLI work | `skills/fulcra-primitives/` |
-| Import a third-party export or fetched data source | `skills/fulcra-ingest-beta/` |
+| Import a third-party export or fetched data source | `skills/fulcra-ingest/` |
 | Discover recent records, file changes, or team messages | `skills/fulcra-situational-awareness/` |
 | Define and record custom personal or agent data | `skills/fulcra-tracking/` |
 | Build a persistent interactive data application | `skills/fulcra-dashboard/` |
@@ -49,7 +47,7 @@ Do not infer one intent from another. For example, permission to build a dashboa
 
 1. If `fulcra-onboarding` is not already available, install it with `npx skills add fulcradynamics/agent-skills --skill fulcra-onboarding`.
 2. Run `fulcra-onboarding` to verify prerequisites and complete authentication.
-3. If the user wants to bring in external data, hand off to `fulcra-ingest-beta`.
+3. If the user wants to bring in external data, hand off to `fulcra-ingest`.
 4. If the user opts into recurring checks, configure `fulcra-situational-awareness`.
 5. Add `fulcra-agent-teams` only when multiple agents need shared context or coordination.
 
@@ -75,7 +73,7 @@ These are complementary, not interchangeable. Never put chain-of-thought into re
 
 ### Ingestion and awareness
 
-Use `fulcra-ingest-beta` for schema mapping, deterministic record creation, lineage, correction, and archival. Use `fulcra-situational-awareness` afterward only if the user wants the agent to monitor for new processed data or files. Recurring ingestion and recurring awareness both require their own user-approved automation setup.
+Use `fulcra-ingest` for schema mapping, deterministic record creation, lineage, correction, and archival. Use `fulcra-situational-awareness` afterward only if the user wants the agent to monitor for new processed data or files. Recurring ingestion and recurring awareness both require their own user-approved automation setup.
 
 ## Fulcra operating model
 
@@ -92,6 +90,13 @@ Prefer the official `fulcra-api` CLI when the selected skill supports the operat
 
 ```bash
 uv tool run fulcra-api --help
+```
+
+Example login workflow:
+```
+uv tool run fulcra-api auth login --get-auth-url
+# ... present url/code to user, then ...
+uv tool run fulcra-api auth login --device-code <DEVICE_CODE> --poll-timeout=5
 ```
 
 Use command discovery rather than relying on memory:
